@@ -1,0 +1,367 @@
+{
+  "appTitle": "Electric Meter Billing",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings screen title"
+  },
+  "theme": "Theme",
+  "@theme": {
+    "description": "Theme option in settings"
+  },
+  "system": "System",
+  "@system": {
+    "description": "System theme option"
+  },
+  "light": "Light",
+  "@light": {
+    "description": "Light theme option"
+  },
+  "dark": "Dark",
+  "@dark": {
+    "description": "Dark theme option"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language option in settings"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English language option"
+  },
+  "french": "French",
+  "@french": {
+    "description": "French language option"
+  },
+  "currency": "Currency",
+  "@currency": {
+    "description": "Currency option in settings"
+  },
+  "updateExchangeRates": "Update Exchange Rates",
+  "@updateExchangeRates": {
+    "description": "Button to update exchange rates"
+  },
+  "lastUpdated": "Last updated: {date}",
+  "@lastUpdated": {
+    "description": "Last updated date for exchange rates",
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
+  "offline": "Offline",
+  "@offline": {
+    "description": "Offline status"
+  },
+  "online": "Online",
+  "@online": {
+    "description": "Online status"
+  },
+  "usingCachedRates": "Using cached rates",
+  "@usingCachedRates": {
+    "description": "Message when using cached exchange rates"
+  },
+  "appearance": "Appearance",
+  "@appearance": {
+    "description": "Appearance section in settings"
+  },
+  "backupRestore": "Backup & Restore",
+  "@backupRestore": {
+    "description": "Backup and restore section in settings"
+  },
+  "createBackup": "Create Backup",
+  "@createBackup": {
+    "description": "Create backup option"
+  },
+  "createBackupDescription": "Create a backup of all your data",
+  "@createBackupDescription": {
+    "description": "Description for create backup option"
+  },
+  "restoreBackup": "Restore Backup",
+  "@restoreBackup": {
+    "description": "Restore backup option"
+  },
+  "restoreBackupDescription": "Restore data from a backup file",
+  "@restoreBackupDescription": {
+    "description": "Description for restore backup option"
+  },
+  "shareBackup": "Share Backup",
+  "@shareBackup": {
+    "description": "Share backup option"
+  },
+  "shareBackupDescription": "Share backup file with others",
+  "@shareBackupDescription": {
+    "description": "Description for share backup option"
+  },
+  "exportBackup": "Export Backup",
+  "@exportBackup": {
+    "description": "Export backup option"
+  },
+  "exportBackupDescription": "Save backup file to device",
+  "@exportBackupDescription": {
+    "description": "Description for export backup option"
+  },
+  "about": "About",
+  "@about": {
+    "description": "About section in settings"
+  },
+  "version": "Version",
+  "@version": {
+    "description": "Version option in about section"
+  },
+  "selectTheme": "Select Theme",
+  "@selectTheme": {
+    "description": "Title for theme selection dialog"
+  },
+  "selectLanguage": "Select Language",
+  "@selectLanguage": {
+    "description": "Title for language selection dialog"
+  },
+  "selectCurrency": "Select Currency",
+  "@selectCurrency": {
+    "description": "Title for currency selection dialog"
+  },
+  "home": "Home",
+  "@home": {
+    "description": "Home screen title"
+  },
+  "overview": "Overview",
+  "@overview": {
+    "description": "Overview section title"
+  },
+  "totalMeters": "Total Meters",
+  "@totalMeters": {
+    "description": "Total meters statistic"
+  },
+  "totalConsumption": "Total Consumption",
+  "@totalConsumption": {
+    "description": "Total consumption statistic"
+  },
+  "totalAmount": "Total Amount",
+  "@totalAmount": {
+    "description": "Total amount statistic"
+  },
+  "addMeter": "Add Meter",
+  "@addMeter": {
+    "description": "Add meter button"
+  },
+  "meterName": "Meter Name",
+  "@meterName": {
+    "description": "Meter name field"
+  },
+  "location": "Location",
+  "@location": {
+    "description": "Location field"
+  },
+  "clientName": "Client Name",
+  "@clientName": {
+    "description": "Client name field"
+  },
+  "pricePerKwh": "Price per kWh",
+  "@pricePerKwh": {
+    "description": "Price per kWh field"
+  },
+  "contactInfo": "Contact Info",
+  "@contactInfo": {
+    "description": "Contact info section"
+  },
+  "contactName": "Contact Name",
+  "@contactName": {
+    "description": "Contact name field"
+  },
+  "contactPhone": "Contact Phone",
+  "@contactPhone": {
+    "description": "Contact phone field"
+  },
+  "contactEmail": "Contact Email",
+  "@contactEmail": {
+    "description": "Contact email field"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save button"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button"
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Edit button"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Delete button"
+  },
+  "readings": "Readings",
+  "@readings": {
+    "description": "Readings button"
+  },
+  "bills": "Bills",
+  "@bills": {
+    "description": "Bills button"
+  },
+  "meterReadings": "Meter Readings",
+  "@meterReadings": {
+    "description": "Meter readings screen title"
+  },
+  "addReading": "Add Reading",
+  "@addReading": {
+    "description": "Add reading button"
+  },
+  "readingValue": "Reading Value",
+  "@readingValue": {
+    "description": "Reading value field"
+  },
+  "readingDate": "Reading Date",
+  "@readingDate": {
+    "description": "Reading date field"
+  },
+  "notes": "Notes",
+  "@notes": {
+    "description": "Notes field"
+  },
+  "takePhoto": "Take Photo",
+  "@takePhoto": {
+    "description": "Take photo button"
+  },
+  "selectFromGallery": "Select from Gallery",
+  "@selectFromGallery": {
+    "description": "Select from gallery button"
+  },
+  "billsTitle": "Bills - {meterName}",
+  "@billsTitle": {
+    "description": "Bills screen title",
+    "placeholders": {
+      "meterName": {
+        "type": "String"
+      }
+    }
+  },
+  "generateBill": "Generate Bill",
+  "@generateBill": {
+    "description": "Generate bill button"
+  },
+  "startDate": "Start Date",
+  "@startDate": {
+    "description": "Start date field"
+  },
+  "endDate": "End Date",
+  "@endDate": {
+    "description": "End date field"
+  },
+  "amount": "Amount",
+  "@amount": {
+    "description": "Amount field"
+  },
+  "dueDate": "Due Date",
+  "@dueDate": {
+    "description": "Due date field"
+  },
+  "paid": "Paid",
+  "@paid": {
+    "description": "Paid status"
+  },
+  "unpaid": "Unpaid",
+  "@unpaid": {
+    "description": "Unpaid status"
+  },
+  "markAsPaid": "Mark as Paid",
+  "@markAsPaid": {
+    "description": "Mark as paid button"
+  },
+  "markAsUnpaid": "Mark as Unpaid",
+  "@markAsUnpaid": {
+    "description": "Mark as unpaid button"
+  },
+  "sendBill": "Send Bill",
+  "@sendBill": {
+    "description": "Send bill button"
+  },
+  "sendAllBills": "Send All Bills",
+  "@sendAllBills": {
+    "description": "Send all bills button"
+  },
+  "sendUnpaidBills": "Send Unpaid Bills",
+  "@sendUnpaidBills": {
+    "description": "Send unpaid bills button"
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Email option"
+  },
+  "sms": "SMS",
+  "@sms": {
+    "description": "SMS option"
+  },
+  "pdf": "PDF",
+  "@pdf": {
+    "description": "PDF option"
+  },
+  "consumption": "Consumption",
+  "@consumption": {
+    "description": "Consumption field"
+  },
+  "kWh": "kWh",
+  "@kWh": {
+    "description": "Kilowatt-hour unit"
+  },
+  "currencySettings": "Currency Settings",
+  "@currencySettings": {
+    "description": "Currency settings section"
+  },
+  "defaultCurrency": "Default Currency",
+  "@defaultCurrency": {
+    "description": "Default currency option"
+  },
+  "exchangeRates": "Exchange Rates",
+  "@exchangeRates": {
+    "description": "Exchange rates section"
+  },
+  "requiredField": "Required field",
+  "@requiredField": {
+    "description": "Message shown when a required field is empty"
+  },
+  "invalidPrice": "Enter a valid price",
+  "@invalidPrice": {
+    "description": "Message shown when price input is invalid"
+  },
+  "selectContact": "Select Contact",
+  "@selectContact": {
+    "description": "Label for contact selection button"
+  },
+  "deleteMeter": "Delete Meter",
+  "@deleteMeter": {
+    "description": "Title of delete meter confirmation dialog"
+  },
+  "deleteConfirmation": "Are you sure you want to delete {name}? This will also delete all associated readings and bills.",
+  "@deleteConfirmation": {
+    "description": "Delete meter confirmation message",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Meter 1"
+      }
+    }
+  },
+  "error": "Error",
+  "@error": {
+    "description": "Error message prefix"
+  },
+  "noMetersAvailable": "No meters available",
+  "@noMetersAvailable": {
+    "description": "Message shown when no meters are available"
+  },
+  "contact": "Contact",
+  "@contact": {
+    "description": "Contact label prefix"
+  },
+  "phone": "Phone",
+  "@phone": {
+    "description": "Phone label prefix"
+  }
+}

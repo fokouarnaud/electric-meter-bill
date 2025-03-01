@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../data/models/meter_model.dart';
 import '../../domain/entities/meter.dart';
 import '../bloc/meter/meter_bloc.dart';
 import '../bloc/meter/meter_event.dart';
 import '../bloc/meter/meter_state.dart';
+import '../bloc/currency/currency_bloc.dart';
+import '../bloc/currency/currency_state.dart';
+import '../../services/currency_service.dart';
 import '../bloc/meter_reading/meter_reading_bloc.dart';
 import '../bloc/meter_reading/meter_reading_event.dart';
 import '../widgets/contact_picker_dialog.dart';
@@ -26,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Electric Meter Billing'),
+        title: Text(AppLocalizations.of(context)?.appTitle ?? 'Electric Meter Billing'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -42,7 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocBuilder<MeterBloc, MeterState>(
         builder: (context, state) {
           if (state is MeterLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           } else if (state is MetersLoaded) {
             return Column(
               children: [
@@ -51,9 +57,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             );
           } else if (state is MeterError) {
-            return Center(child: Text('Error: ${state.message}'));
+            return Center(
+              child: Text(
+                '${AppLocalizations.of(context)?.error ?? 'Error'}: ${state.message}',
+              ),
+            );
           }
-          return const Center(child: Text('No meters available'));
+          return Center(
+            child: Text(AppLocalizations.of(context)?.noMetersAvailable ?? 'No meters available'),
+          );
         },
       ),
       floatingActionButton: Builder(
@@ -73,9 +85,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Overview',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)?.overview ?? 'Overview',
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -85,21 +97,24 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildStatItem(
-                  'Total Meters',
+                  AppLocalizations.of(context)?.totalMeters ?? 'Total Meters',
                   state.totalMeters.toString(),
                   Icons.electric_meter,
                   Colors.blue,
                 ),
                 _buildStatItem(
-                  'Total Consumption',
-                  '${state.totalConsumption.toStringAsFixed(2)} kWh',
+                  AppLocalizations.of(context)?.totalConsumption ?? 'Total Consumption',
+                  '${state.totalConsumption.toStringAsFixed(2)} ${AppLocalizations.of(context)?.kWh ?? 'kWh'}',
                   Icons.bolt,
                   Colors.orange,
                 ),
                 _buildStatItem(
-                  'Total Amount',
-                  '€${state.totalAmount.toStringAsFixed(2)}',
-                  Icons.euro,
+                  AppLocalizations.of(context)?.totalAmount ?? 'Total Amount',
+                  getIt<CurrencyService>().formatAmount(
+                    state.totalAmount,
+                    context.watch<CurrencyBloc>().state.activeCurrency,
+                  ),
+                  Icons.currency_exchange,
                   Colors.green,
                 ),
               ],
@@ -153,17 +168,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(meter.location),
                 Text(meter.clientName),
                 if (meter.contactName != null)
-                  Text('Contact: ${meter.contactName}'),
+                  Text('${AppLocalizations.of(context)?.contact ?? 'Contact'}: ${meter.contactName}'),
                 if (meter.contactPhone != null)
-                  Text('Phone: ${meter.contactPhone}'),
+                  Text('${AppLocalizations.of(context)?.phone ?? 'Phone'}: ${meter.contactPhone}'),
                 if (meter.contactEmail != null)
-                  Text('Email: ${meter.contactEmail}'),
+                  Text('${AppLocalizations.of(context)?.email ?? 'Email'}: ${meter.contactEmail}'),
               ],
             ),
             trailing: PopupMenuButton(
               itemBuilder: (context) => [
                 PopupMenuItem(
-                  child: const Text('Add Reading'),
+                  child: Text(AppLocalizations.of(context)?.addReading ?? 'Add Reading'),
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -175,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 PopupMenuItem(
-                  child: const Text('View Readings'),
+                  child: Text(AppLocalizations.of(context)?.readings ?? 'View Readings'),
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -188,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 PopupMenuItem(
-                  child: const Text('View Bills'),
+                  child: Text(AppLocalizations.of(context)?.bills ?? 'View Bills'),
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -197,11 +212,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 PopupMenuItem(
-                  child: const Text('Edit'),
+                  child: Text(AppLocalizations.of(context)?.edit ?? 'Edit'),
                   onTap: () => _showEditMeterDialog(context, meter),
                 ),
                 PopupMenuItem(
-                  child: const Text('Delete'),
+                  child: Text(AppLocalizations.of(context)?.delete ?? 'Delete'),
                   onTap: () => _showDeleteMeterDialog(context, meter),
                 ),
               ],
@@ -226,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (dialogContext) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: const Text('Add New Meter'),
+          title: Text(AppLocalizations.of(context)?.addMeter ?? 'Add New Meter'),
           content: Form(
             key: formKey,
             child: SingleChildScrollView(
@@ -234,32 +249,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextFormField(
-                    decoration: const InputDecoration(labelText: 'Meter Name'),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)?.meterName ?? 'Meter Name'
+                    ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? 'Required field' : null,
+                        value?.isEmpty ?? true ? AppLocalizations.of(context)?.requiredField ?? 'Required field' : null,
                     onSaved: (value) => name = value ?? '',
                   ),
                   TextFormField(
-                    decoration: const InputDecoration(labelText: 'Location'),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)?.location ?? 'Location'
+                    ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? 'Required field' : null,
+                        value?.isEmpty ?? true ? AppLocalizations.of(context)?.requiredField ?? 'Required field' : null,
                     onSaved: (value) => location = value ?? '',
                   ),
                   TextFormField(
-                    decoration: const InputDecoration(labelText: 'Client Name'),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)?.clientName ?? 'Client Name'
+                    ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? 'Required field' : null,
+                        value?.isEmpty ?? true ? AppLocalizations.of(context)?.requiredField ?? 'Required field' : null,
                     onSaved: (value) => clientName = value ?? '',
                   ),
                   TextFormField(
-                    decoration:
-                        const InputDecoration(labelText: 'Price per kWh'),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)?.pricePerKwh ?? 'Price per kWh'
+                    ),
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                      if (value?.isEmpty ?? true) return 'Required field';
+                      if (value?.isEmpty ?? true) return AppLocalizations.of(context)?.requiredField ?? 'Required field';
                       final price = double.tryParse(value!);
                       if (price == null || price <= 0) {
-                        return 'Enter a valid price';
+                        return AppLocalizations.of(context)?.invalidPrice ?? 'Enter a valid price';
                       }
                       return null;
                     },
@@ -268,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 16),
                   ListTile(
                     title: Text(
-                      contactName ?? 'Select Contact',
+                      contactName ?? (AppLocalizations.of(context)?.selectContact ?? 'Select Contact'),
                       style: TextStyle(
                         color: contactName == null ? Colors.grey : null,
                       ),
@@ -321,7 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(dialogContext),
-              child: const Text('Cancel'),
+              child: Text(AppLocalizations.of(context)?.cancel ?? 'Cancel'),
             ),
             TextButton(
               onPressed: () {
@@ -344,7 +366,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pop(dialogContext);
                 }
               },
-              child: const Text('Add'),
+              child: Text(AppLocalizations.of(context)?.save ?? 'Save'),
             ),
           ],
         ),
@@ -366,7 +388,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (dialogContext) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: const Text('Edit Meter'),
+          title: Text(AppLocalizations.of(context)?.edit ?? 'Edit Meter'),
           content: Form(
             key: formKey,
             child: SingleChildScrollView(
@@ -375,35 +397,42 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   TextFormField(
                     initialValue: name,
-                    decoration: const InputDecoration(labelText: 'Meter Name'),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)?.meterName ?? 'Meter Name',
+                    ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? 'Required field' : null,
+                        value?.isEmpty ?? true ? AppLocalizations.of(context)?.requiredField ?? 'Required field' : null,
                     onSaved: (value) => name = value ?? '',
                   ),
                   TextFormField(
                     initialValue: location,
-                    decoration: const InputDecoration(labelText: 'Location'),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)?.location ?? 'Location',
+                    ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? 'Required field' : null,
+                        value?.isEmpty ?? true ? AppLocalizations.of(context)?.requiredField ?? 'Required field' : null,
                     onSaved: (value) => location = value ?? '',
                   ),
                   TextFormField(
                     initialValue: clientName,
-                    decoration: const InputDecoration(labelText: 'Client Name'),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)?.clientName ?? 'Client Name',
+                    ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? 'Required field' : null,
+                        value?.isEmpty ?? true ? AppLocalizations.of(context)?.requiredField ?? 'Required field' : null,
                     onSaved: (value) => clientName = value ?? '',
                   ),
                   TextFormField(
                     initialValue: pricePerKwh.toString(),
-                    decoration:
-                        const InputDecoration(labelText: 'Price per kWh'),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context)?.pricePerKwh ?? 'Price per kWh',
+                    ),
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                      if (value?.isEmpty ?? true) return 'Required field';
+                      if (value?.isEmpty ?? true) return AppLocalizations.of(context)?.requiredField ?? 'Required field';
                       final price = double.tryParse(value!);
                       if (price == null || price <= 0) {
-                        return 'Enter a valid price';
+                        return AppLocalizations.of(context)?.invalidPrice ?? 'Enter a valid price';
                       }
                       return null;
                     },
@@ -412,7 +441,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 16),
                   ListTile(
                     title: Text(
-                      contactName ?? 'Select Contact',
+                      contactName ?? (AppLocalizations.of(context)?.selectContact ?? 'Select Contact'),
                       style: TextStyle(
                         color: contactName == null ? Colors.grey : null,
                       ),
@@ -420,8 +449,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (contactPhone != null) Text(contactPhone!),
-                        if (contactEmail != null) Text(contactEmail!),
+                        if (contactPhone != null)
+                          Text('${AppLocalizations.of(context)?.phone ?? 'Phone'}: $contactPhone'),
+                        if (contactEmail != null)
+                          Text('${AppLocalizations.of(context)?.email ?? 'Email'}: $contactEmail'),
                       ],
                     ),
                     trailing: Row(
@@ -465,7 +496,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(dialogContext),
-              child: const Text('Cancel'),
+              child: Text(AppLocalizations.of(context)?.cancel ?? 'Cancel'),
             ),
             TextButton(
               onPressed: () {
@@ -487,7 +518,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pop(dialogContext);
                 }
               },
-              child: const Text('Update'),
+              child: Text(AppLocalizations.of(context)?.save ?? 'Save'),
             ),
           ],
         ),
@@ -499,19 +530,20 @@ class _HomeScreenState extends State<HomeScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Delete Meter'),
+        title: Text(AppLocalizations.of(context)?.deleteMeter ?? 'Delete Meter'),
         content: Text(
-          'Are you sure you want to delete ${meter.name}? '
-          'This will also delete all associated readings and bills.',
+          AppLocalizations.of(context)?.deleteConfirmation.toString()
+              .replaceAll('{name}', meter.name) ??
+          'Are you sure you want to delete ${meter.name}? This will also delete all associated readings and bills.',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)?.cancel ?? 'Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, true),
-            child: const Text('Delete'),
+            child: Text(AppLocalizations.of(context)?.delete ?? 'Delete'),
           ),
         ],
       ),

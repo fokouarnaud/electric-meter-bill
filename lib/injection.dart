@@ -10,15 +10,19 @@ import 'presentation/bloc/bill/bill_bloc.dart';
 import 'presentation/bloc/meter/meter_bloc.dart';
 import 'presentation/bloc/meter_reading/meter_reading_bloc.dart';
 import 'presentation/bloc/theme/theme_bloc.dart';
+import 'presentation/bloc/language/language_bloc.dart';
+import 'presentation/bloc/currency/currency_bloc.dart';
 import 'services/backup_service.dart';
 import 'services/email_service.dart';
 import 'services/notification_service.dart';
 import 'services/pdf_service.dart';
 import 'services/theme_service.dart';
+import 'services/language_service.dart';
+import 'services/currency_service.dart';
 
 final getIt = GetIt.instance;
 
-Future<void> initializeDependencies() async {
+Future<void> initializeDependencies({required String currencyApiKey}) async {
   // Database
   getIt.registerLazySingleton(() => DatabaseHelper.instance);
 
@@ -28,6 +32,18 @@ Future<void> initializeDependencies() async {
   getIt.registerLazySingleton(() => PdfService());
   getIt.registerLazySingleton(() => ThemeService());
   getIt.registerLazySingleton(() => NotificationService());
+
+  // Initialize language and currency services
+  await LanguageService.initialize();
+  await CurrencyService.initialize();
+
+  // Register language and currency services
+  final languageService = LanguageService();
+  final currencyService = CurrencyService(apiKey: currencyApiKey);
+  await currencyService.loadExchangeRatesFromPrefs();
+
+  getIt.registerLazySingleton<LanguageService>(() => languageService);
+  getIt.registerLazySingleton<CurrencyService>(() => currencyService);
 
   // Repositories
   getIt.registerLazySingleton<MeterRepository>(
@@ -57,5 +73,13 @@ Future<void> initializeDependencies() async {
 
   getIt.registerFactory(
     () => ThemeBloc(),
+  );
+
+  getIt.registerFactory(
+    () => LanguageBloc(getIt<LanguageService>()),
+  );
+
+  getIt.registerFactory(
+    () => CurrencyBloc(getIt<CurrencyService>()),
   );
 }

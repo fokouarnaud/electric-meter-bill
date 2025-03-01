@@ -6,12 +6,22 @@ import '../../services/backup_service.dart';
 import '../bloc/theme/theme_bloc.dart';
 import '../bloc/theme/theme_event.dart';
 import '../bloc/theme/theme_state.dart';
+import '../bloc/language/language_bloc.dart';
+import '../bloc/language/language_event.dart';
+import '../bloc/language/language_state.dart';
+import '../bloc/currency/currency_bloc.dart';
+import '../bloc/currency/currency_event.dart';
+import '../bloc/currency/currency_state.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Initialize language and currency blocs
+    context.read<LanguageBloc>().add(const LoadLanguage());
+    context.read<CurrencyBloc>().add(const LoadCurrency());
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -30,6 +40,81 @@ class SettingsScreen extends StatelessWidget {
             },
           ),
           const Divider(),
+
+          // Language section
+          const _SectionHeader(title: 'Language'),
+          BlocBuilder<LanguageBloc, LanguageState>(
+            builder: (context, state) {
+              final languageBloc = context.read<LanguageBloc>();
+              final currentLocale = state.locale;
+              final languageName =
+                  languageBloc.getLanguageName(currentLocale.languageCode);
+
+              return ListTile(
+                leading: const Icon(Icons.language),
+                title: const Text('Language'),
+                subtitle: Text(languageName),
+                onTap: () => _showLanguageDialog(context, currentLocale),
+              );
+            },
+          ),
+          const Divider(),
+
+          // Currency section
+          const _SectionHeader(title: 'Currency'),
+          BlocBuilder<CurrencyBloc, CurrencyState>(
+            builder: (context, state) {
+              return ListTile(
+                leading: const Icon(Icons.currency_exchange),
+                title: const Text('Currency'),
+                subtitle: Text(
+                    '${state.activeCurrency.name} (${state.activeCurrency.symbol})'),
+                onTap: () => _showCurrencyDialog(context, state),
+                trailing: state.status == CurrencyStatus.loading
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : null,
+              );
+            },
+          ),
+          BlocBuilder<CurrencyBloc, CurrencyState>(
+            builder: (context, state) {
+              return ListTile(
+                leading: const Icon(Icons.update),
+                title: const Text('Update Exchange Rates'),
+                subtitle: state.lastUpdated != null
+                    ? Text(
+                        'Last updated: ${_formatDateTime(state.lastUpdated!)}')
+                    : const Text('Never updated'),
+                onTap: () {
+                  context.read<CurrencyBloc>().add(const UpdateExchangeRates());
+                },
+              );
+            },
+          ),
+          BlocBuilder<CurrencyBloc, CurrencyState>(
+            builder: (context, state) {
+              if (state.status == CurrencyStatus.error &&
+                  state.errorMessage != null) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    state.errorMessage!,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 14,
+                    ),
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
+          const Divider(),
+
           const _SectionHeader(title: 'Backup & Restore'),
           ListTile(
             leading: const Icon(Icons.backup),
@@ -117,6 +202,68 @@ class SettingsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _showLanguageDialog(BuildContext context, Locale currentLocale) {
+    final languageBloc = context.read<LanguageBloc>();
+
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Select Language'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: languageBloc.supportedLocales.map((locale) {
+            final languageName =
+                languageBloc.getLanguageName(locale.languageCode);
+
+            return RadioListTile<String>(
+              title: Text(languageName),
+              value: locale.languageCode,
+              groupValue: currentLocale.languageCode,
+              onChanged: (value) {
+                if (value != null) {
+                  languageBloc.add(ChangeLanguage(Locale(value)));
+                  Navigator.pop(context);
+                }
+              },
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _showCurrencyDialog(BuildContext context, CurrencyState state) {
+    final currencyBloc = context.read<CurrencyBloc>();
+
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Select Currency'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: state.supportedCurrencies.map((currency) {
+            return RadioListTile<String>(
+              title: Text('${currency.name} (${currency.symbol})'),
+              subtitle: Text('Exchange Rate: ${currency.exchangeRate}'),
+              value: currency.code,
+              groupValue: state.activeCurrency.code,
+              onChanged: (value) {
+                if (value != null) {
+                  currencyBloc.add(ChangeCurrency(value));
+                  Navigator.pop(context);
+                }
+              },
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+
+  String _formatDateTime(DateTime dateTime) {
+    return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
   }
 
   Future<void> _createBackup(BuildContext context) async {
