@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../domain/entities/meter.dart';
 import '../../../domain/repositories/meter_repository.dart';
 import 'meter_event.dart';
 import 'meter_state.dart';

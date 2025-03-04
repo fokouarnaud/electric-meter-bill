@@ -1,5 +1,6 @@
-import 'dart:io';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import '../domain/entities/bill.dart';
 import '../domain/entities/meter.dart';
@@ -7,6 +8,7 @@ import 'pdf_service.dart';
 
 class EmailService {
   static Future<void> sendBillEmail({
+    required BuildContext context,
     required Bill bill,
     required Meter meter,
     required String recipientEmail,
@@ -52,9 +54,11 @@ Electric Meter Billing System
   }
 
   static Future<void> sendBulkBillEmails({
+    required BuildContext context,
     required List<Bill> bills,
     required Meter meter,
     required String recipientEmail,
+    
   }) async {
     try {
       // Generate bulk PDF
@@ -74,7 +78,7 @@ Electric Meter Billing System
           .fold<double>(0, (sum, bill) => sum + bill.amount);
 
       // Prepare email
-      final dateFormat = DateFormat('dd/MM/yyyy');
+      
       final currencyFormat =
           NumberFormat.currency(symbol: '€', locale: 'fr_FR');
       final numberFormat = NumberFormat('#,##0.00');

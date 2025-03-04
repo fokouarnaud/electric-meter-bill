@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import '../../data/models/meter_reading_model.dart';
 import '../../domain/entities/meter.dart';
@@ -24,7 +25,7 @@ class MeterReadingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Readings - ${meter.name}'),
+        title: Text('${AppLocalizations.of(context)?.readings ?? "Readings"} - ${meter.name}'),
       ),
       body: BlocBuilder<MeterReadingBloc, MeterReadingState>(
         builder: (context, state) {
@@ -33,9 +34,13 @@ class MeterReadingsScreen extends StatelessWidget {
           } else if (state is MeterReadingsLoaded) {
             return _buildReadingsList(context, state.readings);
           } else if (state is MeterReadingError) {
-            return Center(child: Text('Error: ${state.message}'));
+            return Center(
+              child: Text('${AppLocalizations.of(context)?.error ?? "Error"}: ${state.message}')
+            );
           }
-          return const Center(child: Text('No readings available'));
+          return Center(
+            child: Text(AppLocalizations.of(context)?.meterReadings ?? 'No readings available')
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -90,32 +95,32 @@ class MeterReadingsScreen extends StatelessWidget {
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Date: ${dateFormat.format(reading.readingDate)}'),
+                    Text('${AppLocalizations.of(context)?.readingDate ?? "Date"}: ${dateFormat.format(reading.readingDate)}'),
                     if (consumption != null)
                       Text(
-                        'Consumption: ${numberFormat.format(consumption)} kWh',
+                        '${AppLocalizations.of(context)?.consumption ?? "Consumption"}: ${numberFormat.format(consumption)} ${AppLocalizations.of(context)?.kWh ?? "kWh"}',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     if (reading.notes != null && reading.notes!.isNotEmpty)
-                      Text('Notes: ${reading.notes}'),
+                      Text('${AppLocalizations.of(context)?.notes ?? "Notes"}: ${reading.notes}'),
                   ],
                 ),
                 trailing: PopupMenuButton(
                   itemBuilder: (context) => [
                     PopupMenuItem(
-                      child: const Text('View Image'),
+                      child: Text(AppLocalizations.of(context)?.viewImage ?? 'View Image'),
                       onTap: () => _showReadingImage(context, reading),
                     ),
                     if (!reading.isVerified)
                       PopupMenuItem(
-                        child: const Text('Verify Reading'),
+                        child: Text(AppLocalizations.of(context)?.verifyReading ?? 'Verify Reading'),
                         onTap: () => _verifyReading(context, reading),
                       ),
                     PopupMenuItem(
-                      child: const Text('Delete'),
+                      child: Text(AppLocalizations.of(context)?.delete ?? 'Delete'),
                       onTap: () => _showDeleteDialog(context, reading),
                     ),
                   ],
@@ -162,19 +167,19 @@ class MeterReadingsScreen extends StatelessWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Verify Reading'),
-        content: const Text(
-          'Are you sure you want to verify this reading? '
-          'This action cannot be undone.',
+        title: Text(AppLocalizations.of(context)?.verifyReading ?? 'Verify Reading'),
+        content: Text(
+          AppLocalizations.of(context)?.verifyReadingConfirmation ??
+          'Are you sure you want to verify this reading? This action cannot be undone.',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)?.cancel ?? 'Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Verify'),
+            child: Text(AppLocalizations.of(context)?.verifyReading ?? 'Verify'),
           ),
         ],
       ),
@@ -202,19 +207,19 @@ class MeterReadingsScreen extends StatelessWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Reading'),
-        content: const Text(
-          'Are you sure you want to delete this reading? '
-          'This action cannot be undone.',
+        title: Text(AppLocalizations.of(context)?.confirmDelete ?? 'Delete Reading'),
+        content: Text(
+          AppLocalizations.of(context)?.deleteReadingConfirmation ??
+          'Are you sure you want to delete this reading? This action cannot be undone.',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)?.cancel ?? 'Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Delete'),
+            child: Text(AppLocalizations.of(context)?.delete ?? 'Delete'),
           ),
         ],
       ),

@@ -1,7 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
@@ -10,7 +12,7 @@ class CameraScreen extends StatefulWidget {
   State<CameraScreen> createState() => _CameraScreenState();
 }
 
-class _CameraScreenState extends State<CameraScreen> {
+class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver {
   CameraController? _controller;
   List<CameraDescription>? _cameras;
   bool _isInitialized = false;
@@ -18,11 +20,45 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _initializeCamera();
   }
 
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (_controller == null || !_controller!.value.isInitialized) return;
+
+    if (state == AppLifecycleState.inactive) {
+      _controller?.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      _initializeCamera();
+    }
+  }
+
   Future<void> _initializeCamera() async {
+    if (!mounted) return;
+
     try {
+      final hasPermission = await Permission.camera.request();
+      if (!hasPermission.isGranted) {
+        if (!mounted) return;
+        final BuildContext currentContext = this.context;
+        final l10n = AppLocalizations.of(currentContext);
+        ScaffoldMessenger.of(currentContext).showSnackBar(
+          SnackBar(
+            content: Text(l10n?.cameraPermissionRequired ?? 'Camera permission is required'),
+          ),
+        );
+        return;
+      }
+
       _cameras = await availableCameras();
       if (_cameras != null && _cameras!.isNotEmpty) {
         _controller = CameraController(
@@ -40,6 +76,15 @@ class _CameraScreenState extends State<CameraScreen> {
       }
     } catch (e) {
       debugPrint('Error initializing camera: $e');
+      if (!mounted) return;
+      final BuildContext currentContext = this.context;
+      ScaffoldMessenger.of(currentContext).showSnackBar(
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(currentContext)?.error ?? 'Error initializing camera'
+          ),
+        ),
+      );
     }
   }
 
@@ -62,24 +107,31 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   @override
-  void dispose() {
-    _controller?.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final BuildContext currentContext = this.context;
+    final l10n = AppLocalizations.of(currentContext);
+    
     if (!_isInitialized || _controller == null) {
-      return const Scaffold(
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(l10n?.scanReading ?? 'Scan Reading'),
+        ),
         body: Center(
-          child: CircularProgressIndicator(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 16),
+              Text(l10n?.processingImage ?? 'Processing...')
+            ],
+          ),
         ),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Capture Meter Reading'),
+        title: Text(l10n?.scanReading ?? 'Scan Reading'),
       ),
       body: Column(
         children: [
@@ -95,22 +147,40 @@ class _CameraScreenState extends State<CameraScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.flash_on),
+                  icon: Icon(
+                    _controller!.value.flashMode == FlashMode.off
+                      ? Icons.flash_off
+                      : Icons.flash_on,
+                  ),
                   onPressed: () async {
-                    final FlashMode currentMode = _controller!.value.flashMode;
-                    await _controller!.setFlashMode(
-                      currentMode == FlashMode.off ? FlashMode.torch : FlashMode.off,
-                    );
-                    setState(() {});
+                    try {
+                      final FlashMode currentMode = _controller!.value.flashMode;
+                      await _controller!.setFlashMode(
+                        currentMode == FlashMode.off ? FlashMode.torch : FlashMode.off,
+                      );
+                      setState(() {});
+                    } catch (e) {
+                      debugPrint('Error toggling flash: $e');
+                    }
                   },
                 ),
                 FloatingActionButton(
                   onPressed: () async {
-                    final imagePath = await _takePicture();
-                    if (imagePath != null && mounted) {
-                      Navigator.pop(context, imagePath);
+                    try {
+                      final imagePath = await _takePicture();
+                      if (imagePath != null && mounted) {
+                        Navigator.pop(currentContext, imagePath);
+                      }
+                    } catch (e) {
+                      if (!mounted) return;
+                      ScaffoldMessenger.of(currentContext).showSnackBar(
+                        SnackBar(
+                          content: Text(l10n?.error ?? 'Error taking picture'),
+                        ),
+                      );
                     }
                   },
+                  tooltip: l10n?.takePhoto ?? 'Take Photo',
                   child: const Icon(Icons.camera),
                 ),
               ],

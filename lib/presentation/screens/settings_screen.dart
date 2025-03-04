@@ -340,7 +340,7 @@ class SettingsScreen extends StatelessWidget {
 
   Future<void> _shareBackup(BuildContext context) async {
     try {
-      final loadingDialog = _showLoadingDialog(context, 'Preparing backup...');
+     
       await BackupService.shareBackup();
       if (context.mounted) {
         Navigator.pop(context); // Dismiss loading dialog
@@ -355,7 +355,7 @@ class SettingsScreen extends StatelessWidget {
 
   Future<void> _exportBackup(BuildContext context) async {
     try {
-      final loadingDialog = _showLoadingDialog(context, 'Exporting backup...');
+      
       await BackupService.exportBackup();
       if (context.mounted) {
         Navigator.pop(context); // Dismiss loading dialog

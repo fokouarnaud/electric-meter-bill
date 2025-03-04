@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../domain/entities/bill.dart';
 import '../../../domain/repositories/bill_repository.dart';
 import 'bill_event.dart';
 import 'bill_state.dart';

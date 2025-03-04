@@ -17,7 +17,7 @@ class CurrencyService {
   static const Duration _refreshInterval = Duration(hours: 12);
   static const int _maxRetries = 3;
   static const Duration _retryDelay = Duration(seconds: 5);
-  
+
   static SharedPreferences? _prefs;
   Timer? _refreshTimer;
   final _connectivity = Connectivity();
@@ -32,7 +32,7 @@ class CurrencyService {
 
   static Future<void> initialize() async {
     _prefs = await SharedPreferences.getInstance();
-    
+
     // Set default currency if not set
     if (_prefs!.getString(_currencyCodeKey) == null) {
       await _prefs!.setString(_currencyCodeKey, _baseCurrency);
@@ -113,9 +113,8 @@ class CurrencyService {
     );
 
     // Convert from source currency to base currency (FCFA)
-    final double amountInBaseCurrency = from.code == _baseCurrency
-        ? amount
-        : amount / from.exchangeRate;
+    final double amountInBaseCurrency =
+        from.code == _baseCurrency ? amount : amount / from.exchangeRate;
 
     // Convert from base currency to target currency
     return to.code == _baseCurrency
@@ -147,9 +146,10 @@ class CurrencyService {
       });
 
       final response = await http.get(uri).timeout(
-        const Duration(seconds: 10),
-        onTimeout: () => throw TimeoutException('The connection has timed out'),
-      );
+            const Duration(seconds: 10),
+            onTimeout: () =>
+                throw TimeoutException('The connection has timed out'),
+          );
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -158,7 +158,8 @@ class CurrencyService {
         bool hasUpdates = false;
         for (var i = 0; i < _supportedCurrencies.length; i++) {
           final currency = _supportedCurrencies[i];
-          if (currency.code != _baseCurrency && rates.containsKey(currency.code)) {
+          if (currency.code != _baseCurrency &&
+              rates.containsKey(currency.code)) {
             final rate = rates[currency.code]['value'] as double;
             if (currency.exchangeRate != rate) {
               hasUpdates = true;
@@ -179,7 +180,7 @@ class CurrencyService {
         return true;
       } else if (response.statusCode == 429 && retryCount < _maxRetries) {
         // Rate limit hit, retry after delay
-        await Future.delayed(_retryDelay * (retryCount + 1));
+        await Future<void>.delayed(_retryDelay * (retryCount + 1));
         return updateExchangeRates(retryCount + 1);
       } else {
         debugPrint('API Error: ${response.statusCode} - ${response.body}');
@@ -188,14 +189,14 @@ class CurrencyService {
     } on TimeoutException catch (e) {
       debugPrint('Timeout error: $e');
       if (retryCount < _maxRetries) {
-        await Future.delayed(_retryDelay * (retryCount + 1));
+        await Future<void>.delayed(_retryDelay * (retryCount + 1));
         return updateExchangeRates(retryCount + 1);
       }
       return false;
     } catch (e) {
       debugPrint('Error updating exchange rates: $e');
       if (retryCount < _maxRetries) {
-        await Future.delayed(_retryDelay * (retryCount + 1));
+        await Future<void>.delayed(_retryDelay * (retryCount + 1));
         return updateExchangeRates(retryCount + 1);
       }
       return false;

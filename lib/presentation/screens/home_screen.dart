@@ -34,9 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
+            tooltip: AppLocalizations.of(context)?.settings ?? 'Settings',
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(
+              MaterialPageRoute<void>(
                 builder: (context) => const SettingsScreen(),
               ),
             ),
@@ -52,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
           } else if (state is MetersLoaded) {
             return Column(
               children: [
-                _buildStatisticsCard(state),
+                _buildStatisticsCard(context, state),
                 Expanded(child: _buildMetersList(context, state.meters)),
               ],
             );
@@ -71,13 +72,15 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: Builder(
         builder: (context) => FloatingActionButton(
           onPressed: () => _showAddMeterDialog(context),
+          tooltip: AppLocalizations.of(context)?.addMeter ?? 'Add Meter',
           child: const Icon(Icons.add),
         ),
       ),
     );
   }
 
-  Widget _buildStatisticsCard(MetersLoaded state) {
+  Widget _buildStatisticsCard(BuildContext context, MetersLoaded state) {
+    final l10n = AppLocalizations.of(context);
     return Card(
       margin: const EdgeInsets.all(8.0),
       child: Padding(
@@ -86,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.of(context)?.overview ?? 'Overview',
+              l10n?.overview ?? 'Overview',
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -97,19 +100,19 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _buildStatItem(
-                  AppLocalizations.of(context)?.totalMeters ?? 'Total Meters',
+                  l10n?.totalMeters ?? 'Total Meters',
                   state.totalMeters.toString(),
                   Icons.electric_meter,
                   Colors.blue,
                 ),
                 _buildStatItem(
-                  AppLocalizations.of(context)?.totalConsumption ?? 'Total Consumption',
-                  '${state.totalConsumption.toStringAsFixed(2)} ${AppLocalizations.of(context)?.kWh ?? 'kWh'}',
+                  l10n?.totalConsumption ?? 'Total Consumption',
+                  '${state.totalConsumption.toStringAsFixed(2)} ${l10n?.kWh ?? 'kWh'}',
                   Icons.bolt,
                   Colors.orange,
                 ),
                 _buildStatItem(
-                  AppLocalizations.of(context)?.totalAmount ?? 'Total Amount',
+                  l10n?.totalAmount ?? 'Total Amount',
                   getIt<CurrencyService>().formatAmount(
                     state.totalAmount,
                     context.watch<CurrencyBloc>().state.activeCurrency,
@@ -150,6 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildMetersList(BuildContext context, List<Meter> meters) {
+    final l10n = AppLocalizations.of(context);
     return ListView.builder(
       itemCount: meters.length,
       padding: const EdgeInsets.all(8.0),
@@ -168,20 +172,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(meter.location),
                 Text(meter.clientName),
                 if (meter.contactName != null)
-                  Text('${AppLocalizations.of(context)?.contact ?? 'Contact'}: ${meter.contactName}'),
+                  Text('${l10n?.contact ?? 'Contact'}: ${meter.contactName}'),
                 if (meter.contactPhone != null)
-                  Text('${AppLocalizations.of(context)?.phone ?? 'Phone'}: ${meter.contactPhone}'),
+                  Text('${l10n?.phone ?? 'Phone'}: ${meter.contactPhone}'),
                 if (meter.contactEmail != null)
-                  Text('${AppLocalizations.of(context)?.email ?? 'Email'}: ${meter.contactEmail}'),
+                  Text('${l10n?.email ?? 'Email'}: ${meter.contactEmail}'),
               ],
             ),
-            trailing: PopupMenuButton(
+            trailing: PopupMenuButton<String>(
               itemBuilder: (context) => [
-                PopupMenuItem(
-                  child: Text(AppLocalizations.of(context)?.addReading ?? 'Add Reading'),
+                PopupMenuItem<String>(
+                  child: Text(l10n?.addReading ?? 'Add Reading'),
                   onTap: () => Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<Widget>(
                       builder: (context) => BlocProvider(
                         create: (context) => getIt<MeterReadingBloc>(),
                         child: AddMeterReadingScreen(meter: meter),
@@ -189,8 +193,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                PopupMenuItem(
-                  child: Text(AppLocalizations.of(context)?.readings ?? 'View Readings'),
+                PopupMenuItem<String>(
+                  child: Text(l10n?.readings ?? 'View Readings'),
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -202,8 +206,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                PopupMenuItem(
-                  child: Text(AppLocalizations.of(context)?.bills ?? 'View Bills'),
+                PopupMenuItem<String>(
+                  child: Text(l10n?.bills ?? 'View Bills'),
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -211,12 +215,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                PopupMenuItem(
-                  child: Text(AppLocalizations.of(context)?.edit ?? 'Edit'),
+                PopupMenuItem<String>(
+                  child: Text(l10n?.edit ?? 'Edit'),
                   onTap: () => _showEditMeterDialog(context, meter),
                 ),
-                PopupMenuItem(
-                  child: Text(AppLocalizations.of(context)?.delete ?? 'Delete'),
+                PopupMenuItem<String>(
+                  child: Text(l10n?.delete ?? 'Delete'),
                   onTap: () => _showDeleteMeterDialog(context, meter),
                 ),
               ],
@@ -228,6 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _showAddMeterDialog(BuildContext context) async {
+    final l10n = AppLocalizations.of(context);
     final formKey = GlobalKey<FormState>();
     String name = '';
     String location = '';
@@ -237,11 +242,11 @@ class _HomeScreenState extends State<HomeScreen> {
     String? contactPhone;
     String? contactEmail;
 
-    await showDialog(
+    await showDialog<void>(
       context: context,
       builder: (dialogContext) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: Text(AppLocalizations.of(context)?.addMeter ?? 'Add New Meter'),
+          title: Text(l10n?.addMeter ?? 'Add New Meter'),
           content: Form(
             key: formKey,
             child: SingleChildScrollView(
@@ -250,38 +255,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)?.meterName ?? 'Meter Name'
+                      labelText: l10n?.meterName ?? 'Meter Name'
                     ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? AppLocalizations.of(context)?.requiredField ?? 'Required field' : null,
+                        value?.isEmpty ?? true ? l10n?.requiredField ?? 'Required field' : null,
                     onSaved: (value) => name = value ?? '',
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)?.location ?? 'Location'
+                      labelText: l10n?.location ?? 'Location'
                     ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? AppLocalizations.of(context)?.requiredField ?? 'Required field' : null,
+                        value?.isEmpty ?? true ? l10n?.requiredField ?? 'Required field' : null,
                     onSaved: (value) => location = value ?? '',
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)?.clientName ?? 'Client Name'
+                      labelText: l10n?.clientName ?? 'Client Name'
                     ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? AppLocalizations.of(context)?.requiredField ?? 'Required field' : null,
+                        value?.isEmpty ?? true ? l10n?.requiredField ?? 'Required field' : null,
                     onSaved: (value) => clientName = value ?? '',
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)?.pricePerKwh ?? 'Price per kWh'
+                      labelText: l10n?.pricePerKwh ?? 'Price per kWh'
                     ),
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                      if (value?.isEmpty ?? true) return AppLocalizations.of(context)?.requiredField ?? 'Required field';
+                      if (value?.isEmpty ?? true) return l10n?.requiredField ?? 'Required field';
                       final price = double.tryParse(value!);
                       if (price == null || price <= 0) {
-                        return AppLocalizations.of(context)?.invalidPrice ?? 'Enter a valid price';
+                        return l10n?.invalidPrice ?? 'Enter a valid price';
                       }
                       return null;
                     },
@@ -290,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 16),
                   ListTile(
                     title: Text(
-                      contactName ?? (AppLocalizations.of(context)?.selectContact ?? 'Select Contact'),
+                      contactName ?? (l10n?.selectContact ?? 'Select Contact'),
                       style: TextStyle(
                         color: contactName == null ? Colors.grey : null,
                       ),
@@ -298,8 +303,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (contactPhone != null) Text(contactPhone!),
-                        if (contactEmail != null) Text(contactEmail!),
+                        if (contactPhone != null) Text('${AppLocalizations.of(context)?.phone ?? 'Phone'}: $contactPhone'),
+                        if (contactEmail != null) Text('${AppLocalizations.of(context)?.email ?? 'Email'}: $contactEmail'),
                       ],
                     ),
                     trailing: Row(
@@ -307,6 +312,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         IconButton(
                           icon: const Icon(Icons.person_add),
+                          tooltip: AppLocalizations.of(context)?.selectContact ?? 'Select Contact',
                           onPressed: () async {
                             final result =
                                 await showDialog<Map<String, String?>>(
@@ -325,6 +331,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         if (contactName != null)
                           IconButton(
                             icon: const Icon(Icons.clear),
+                            tooltip: AppLocalizations.of(context)?.clearContact ?? 'Clear Contact',
                             onPressed: () {
                               setDialogState(() {
                                 contactName = null;
@@ -343,7 +350,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(dialogContext),
-              child: Text(AppLocalizations.of(context)?.cancel ?? 'Cancel'),
+              child: Text(l10n?.cancel ?? 'Cancel'),
             ),
             TextButton(
               onPressed: () {
@@ -366,7 +373,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pop(dialogContext);
                 }
               },
-              child: Text(AppLocalizations.of(context)?.save ?? 'Save'),
+              child: Text(l10n?.save ?? 'Save'),
             ),
           ],
         ),
@@ -375,6 +382,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _showEditMeterDialog(BuildContext context, Meter meter) async {
+    final l10n = AppLocalizations.of(context);
     final formKey = GlobalKey<FormState>();
     String name = meter.name;
     String location = meter.location;
@@ -388,7 +396,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (dialogContext) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
-          title: Text(AppLocalizations.of(context)?.edit ?? 'Edit Meter'),
+          title: Text(l10n?.edit ?? 'Edit Meter'),
           content: Form(
             key: formKey,
             child: SingleChildScrollView(
@@ -398,41 +406,41 @@ class _HomeScreenState extends State<HomeScreen> {
                   TextFormField(
                     initialValue: name,
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)?.meterName ?? 'Meter Name',
+                      labelText: l10n?.meterName ?? 'Meter Name',
                     ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? AppLocalizations.of(context)?.requiredField ?? 'Required field' : null,
+                        value?.isEmpty ?? true ? l10n?.requiredField ?? 'Required field' : null,
                     onSaved: (value) => name = value ?? '',
                   ),
                   TextFormField(
                     initialValue: location,
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)?.location ?? 'Location',
+                      labelText: l10n?.location ?? 'Location',
                     ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? AppLocalizations.of(context)?.requiredField ?? 'Required field' : null,
+                        value?.isEmpty ?? true ? l10n?.requiredField ?? 'Required field' : null,
                     onSaved: (value) => location = value ?? '',
                   ),
                   TextFormField(
                     initialValue: clientName,
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)?.clientName ?? 'Client Name',
+                      labelText: l10n?.clientName ?? 'Client Name',
                     ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? AppLocalizations.of(context)?.requiredField ?? 'Required field' : null,
+                        value?.isEmpty ?? true ? l10n?.requiredField ?? 'Required field' : null,
                     onSaved: (value) => clientName = value ?? '',
                   ),
                   TextFormField(
                     initialValue: pricePerKwh.toString(),
                     decoration: InputDecoration(
-                      labelText: AppLocalizations.of(context)?.pricePerKwh ?? 'Price per kWh',
+                      labelText: l10n?.pricePerKwh ?? 'Price per kWh',
                     ),
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                      if (value?.isEmpty ?? true) return AppLocalizations.of(context)?.requiredField ?? 'Required field';
+                      if (value?.isEmpty ?? true) return l10n?.requiredField ?? 'Required field';
                       final price = double.tryParse(value!);
                       if (price == null || price <= 0) {
-                        return AppLocalizations.of(context)?.invalidPrice ?? 'Enter a valid price';
+                        return l10n?.invalidPrice ?? 'Enter a valid price';
                       }
                       return null;
                     },
@@ -441,7 +449,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 16),
                   ListTile(
                     title: Text(
-                      contactName ?? (AppLocalizations.of(context)?.selectContact ?? 'Select Contact'),
+                      contactName ?? (l10n?.selectContact ?? 'Select Contact'),
                       style: TextStyle(
                         color: contactName == null ? Colors.grey : null,
                       ),
@@ -450,9 +458,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         if (contactPhone != null)
-                          Text('${AppLocalizations.of(context)?.phone ?? 'Phone'}: $contactPhone'),
+                          Text('${l10n?.phone ?? 'Phone'}: $contactPhone'),
                         if (contactEmail != null)
-                          Text('${AppLocalizations.of(context)?.email ?? 'Email'}: $contactEmail'),
+                          Text('${l10n?.email ?? 'Email'}: $contactEmail'),
                       ],
                     ),
                     trailing: Row(
@@ -496,7 +504,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(dialogContext),
-              child: Text(AppLocalizations.of(context)?.cancel ?? 'Cancel'),
+              child: Text(l10n?.cancel ?? 'Cancel'),
             ),
             TextButton(
               onPressed: () {
@@ -518,7 +526,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pop(dialogContext);
                 }
               },
-              child: Text(AppLocalizations.of(context)?.save ?? 'Save'),
+              child: Text(l10n?.save ?? 'Save'),
             ),
           ],
         ),
@@ -527,23 +535,24 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _showDeleteMeterDialog(BuildContext context, Meter meter) async {
+    final l10n = AppLocalizations.of(context);
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: Text(AppLocalizations.of(context)?.deleteMeter ?? 'Delete Meter'),
+        title: Text(l10n?.deleteMeter ?? 'Delete Meter'),
         content: Text(
-          AppLocalizations.of(context)?.deleteConfirmation.toString()
-              .replaceAll('{name}', meter.name) ??
-          'Are you sure you want to delete ${meter.name}? This will also delete all associated readings and bills.',
+          l10n?.deleteConfirmation != null
+              ? l10n!.deleteConfirmation(meter.name)
+              : 'Are you sure you want to delete ${meter.name}? This will also delete all associated readings and bills.',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
-            child: Text(AppLocalizations.of(context)?.cancel ?? 'Cancel'),
+            child: Text(l10n?.cancel ?? 'Cancel'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, true),
-            child: Text(AppLocalizations.of(context)?.delete ?? 'Delete'),
+            child: Text(l10n?.delete ?? 'Delete'),
           ),
         ],
       ),

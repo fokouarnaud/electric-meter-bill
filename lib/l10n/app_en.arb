@@ -338,7 +338,7 @@
   "@deleteMeter": {
     "description": "Title of delete meter confirmation dialog"
   },
-  "deleteConfirmation": "Are you sure you want to delete {name}? This will also delete all associated readings and bills.",
+  "deleteConfirmation": "{name} will be deleted. This will also delete all associated readings and bills. Are you sure?",
   "@deleteConfirmation": {
     "description": "Delete meter confirmation message",
     "placeholders": {
@@ -363,5 +363,420 @@
   "phone": "Phone",
   "@phone": {
     "description": "Phone label prefix"
+  },
+  "cameraPermissionRequired": "Camera Permission Required",
+  "@cameraPermissionRequired": {
+    "description": "Title for camera permission dialog"
+  },
+  "cameraPermissionMessage": "The app needs access to your camera to take photos of readings",
+  "@cameraPermissionMessage": {
+    "description": "Message explaining why camera permission is needed"
+  },
+  "scanReading": "Scan Reading",
+  "@scanReading": {
+    "description": "Button to scan meter reading"
+  },
+  "retakePhoto": "Retake Photo",
+  "@retakePhoto": {
+    "description": "Button to retake photo"
+  },
+  "usePhoto": "Use This Photo",
+  "@usePhoto": {
+    "description": "Button to confirm photo usage"
+  },
+  "processingImage": "Processing Image...",
+  "@processingImage": {
+    "description": "Message shown while processing image"
+  },
+  "noReadingDetected": "No Reading Detected",
+  "@noReadingDetected": {
+    "description": "Message when no reading is detected in image"
+  },
+  "confirmReading": "Confirm Reading",
+  "@confirmReading": {
+    "description": "Title for reading confirmation dialog"
+  },
+  "detectedValue": "Detected Value: {value}",
+  "@detectedValue": {
+    "description": "Shows detected reading value",
+    "placeholders": {
+      "value": {
+        "type": "String",
+        "example": "12345"
+      }
+    }
+  },
+  "readingHistory": "Reading History",
+  "@readingHistory": {
+    "description": "Title for reading history section"
+  },
+  "period": "Period",
+  "@period": {
+    "description": "Label for period selection"
+  },
+  "daily": "Daily",
+  "@daily": {
+    "description": "Daily period option"
+  },
+  "weekly": "Weekly",
+  "@weekly": {
+    "description": "Weekly period option"
+  },
+  "monthly": "Monthly",
+  "@monthly": {
+    "description": "Monthly period option"
+  },
+  "yearly": "Yearly",
+  "@yearly": {
+    "description": "Yearly period option"
+  },
+  "statistics": "Statistics",
+  "@statistics": {
+    "description": "Title for statistics section"
+  },
+  "averageConsumption": "Average Consumption",
+  "@averageConsumption": {
+    "description": "Label for average consumption"
+  },
+  "highestConsumption": "Highest Consumption",
+  "@highestConsumption": {
+    "description": "Label for highest consumption"
+  },
+  "lowestConsumption": "Lowest Consumption",
+  "@lowestConsumption": {
+    "description": "Label for lowest consumption"
+  },
+  "readingSaved": "Reading Saved",
+  "@readingSaved": {
+    "description": "Message when reading is saved"
+  },
+  "readingDeleted": "Reading Deleted",
+  "@readingDeleted": {
+    "description": "Message when reading is deleted"
+  },
+  "confirmDelete": "Confirm Delete",
+  "@confirmDelete": {
+    "description": "Title for delete confirmation dialog"
+  },
+  "deleteReadingMessage": "Are you sure you want to delete this reading?",
+  "@deleteReadingMessage": {
+    "description": "Message for reading deletion confirmation"
+  },
+  "yes": "Yes",
+  "@yes": {
+    "description": "Yes option"
+  },
+  "no": "No",
+  "@no": {
+    "description": "No option"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "OK button text"
+  },
+  "viewImage": "View Image",
+  "@viewImage": {
+    "description": "Button to view meter reading image"
+  },
+  "verifyReading": "Verify Reading",
+  "@verifyReading": {
+    "description": "Button to verify meter reading"
+  },
+  "verifyReadingConfirmation": "Are you sure you want to verify this reading? This action cannot be undone.",
+  "@verifyReadingConfirmation": {
+    "description": "Confirmation message for verifying reading"
+  },
+  "deleteReadingConfirmation": "Are you sure you want to delete this reading? This action cannot be undone.",
+  "@deleteReadingConfirmation": {
+    "description": "Confirmation message for deleting reading"
+  },
+  "billingSummary": "Billing Summary",
+  "@billingSummary": {
+    "description": "Title for billing summary section"
+  },
+  "unpaidAmount": "Unpaid Amount",
+  "@unpaidAmount": {
+    "description": "Label for unpaid amount"
+  },
+  "unpaidBillsCount": "Unpaid Bills",
+  "@unpaidBillsCount": {
+    "description": "Label for unpaid bills count"
+  },
+  "noBillsAvailable": "No bills available",
+  "@noBillsAvailable": {
+    "description": "Message shown when no bills are available"
+  },
+  "deleteBill": "Delete Bill",
+  "@deleteBill": {
+    "description": "Title for delete bill dialog"
+  },
+  "deleteBillConfirmation": "Are you sure you want to delete this bill? This action cannot be undone.",
+  "@deleteBillConfirmation": {
+    "description": "Confirmation message for deleting bill"
+  },
+  "latestReading": "Latest Reading",
+  "@latestReading": {
+    "description": "Label for latest meter reading"
+  },
+  "previousReading": "Previous Reading",
+  "@previousReading": {
+    "description": "Label for previous meter reading"
+  },
+  "clearContact": "Clear Contact",
+  "@clearContact": {
+    "description": "Button to clear contact information"
+  },
+  "currentReading": "Current Reading",
+  "@currentReading": {
+    "description": "Label for current meter reading"
+  },
+  "billGenerated": "Bill generated successfully",
+  "@billGenerated": {
+    "description": "Message shown when bill is generated"
+  },
+  "billDeleted": "Bill deleted successfully",
+  "@billDeleted": {
+    "description": "Message shown when bill is deleted"
+  },
+  "billActions": "Bill Actions",
+  "@billActions": {
+    "description": "Tooltip for bill actions menu"
+  },
+  "actionError": "Error performing action",
+  "@actionError": {
+    "description": "Generic error message for actions"
+  },
+  "invalidReadingValue": "Invalid reading value: current reading must be greater than previous reading",
+  "@invalidReadingValue": {
+    "description": "Error message for invalid reading value"
+  },
+  "readingDate": "Reading date: {date}",
+  "@readingDate": {
+    "description": "Reading date with placeholder",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "01/01/2025"
+      }
+    }
+  },
+  "formattedAmount": "{amount} FCFA",
+  "@formattedAmount": {
+    "description": "Formatted amount with currency",
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "dateRange": "From {start} to {end}",
+  "@dateRange": {
+    "description": "Date range format",
+    "placeholders": {
+      "start": {},
+      "end": {}
+    }
+  },
+  "consumptionFormat": "{amount} {unit}",
+  "@consumptionFormat": {
+    "description": "Consumption format with unit",
+    "placeholders": {
+      "amount": {},
+      "unit": {}
+    }
+  },
+  "statusUpdated": "Status updated",
+  "@statusUpdated": {
+    "description": "Message shown when bill status is updated"
+  },
+  "markedAsPaid": "Bill marked as paid",
+  "@markedAsPaid": {
+    "description": "Message shown when bill is marked as paid"
+  },
+  "markedAsUnpaid": "Bill marked as unpaid",
+  "@markedAsUnpaid": {
+    "description": "Message shown when bill is marked as unpaid"
+  },
+  "sendBillsByEmail": "Send Bills by Email",
+  "@sendBillsByEmail": {
+    "description": "Title for email sending option"
+  },
+  "sendBillsBySms": "Send Bills by SMS",
+  "@sendBillsBySms": {
+    "description": "Title for SMS sending option"
+  },
+  "selectRecipient": "Select Recipient",
+  "@selectRecipient": {
+    "description": "Title for recipient selection"
+  },
+  "chooseMethod": "Choose Sending Method",
+  "@chooseMethod": {
+    "description": "Title for sending method selection"
+  },
+  "emailSentSuccess": "Email sent successfully",
+  "@emailSentSuccess": {
+    "description": "Success message for email sending"
+  },
+  "smsSentSuccess": "SMS sent successfully",
+  "@smsSentSuccess": {
+    "description": "Success message for SMS sending"
+  },
+  "sendingError": "Error sending message",
+  "@sendingError": {
+    "description": "Error message for sending failure"
+  },
+  "noRecipientSelected": "No recipient selected",
+  "@noRecipientSelected": {
+    "description": "Error message when no recipient is selected"
+  },
+  "recipientEmail": "Recipient Email",
+  "@recipientEmail": {
+    "description": "Label for recipient email input"
+  },
+  "recipientPhone": "Recipient Phone",
+  "@recipientPhone": {
+    "description": "Label for recipient phone input"
+  },
+  "sending": "Sending...",
+  "@sending": {
+    "description": "Message shown while sending"
+  },
+  "messagePreview": "Message Preview",
+  "@messagePreview": {
+    "description": "Title for message preview"
+  },
+  "billsToSend": "Bills to send: {count}",
+  "@billsToSend": {
+    "description": "Number of bills to send",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "communicationMethod": "Communication Method",
+  "smsSingleBillMessage": "Dear {clientName},\n\nYour electricity bill for meter {meterName} is ready:\n\nPeriod: {startDate} - {endDate}\nConsumption: {consumption} kWh\nAmount: {amount} \n\nDue date: {dueDate}\n\nLocation: {location}",
+  "@smsSingleBillMessage": {
+    "description": "SMS message template for single bill",
+    "placeholders": {
+      "clientName": {},
+      "meterName": {},
+      "startDate": {},
+      "endDate": {},
+      "consumption": {},
+      "amount": {},
+      "dueDate": {},
+      "location": {}
+    }
+  },
+  "smsBulkBillsMessage": "Dear {clientName},\n\nYou have {count} unpaid electricity bills for meter {meterName}:\n\nTotal consumption: {consumption} kWh\nTotal amount due: {amount}\n\nLocation: {location}\n\nPlease contact us for payment arrangements.",
+  "@smsBulkBillsMessage": {
+    "description": "SMS message template for multiple bills",
+    "placeholders": {
+      "clientName": {},
+      "count": {},
+      "meterName": {},
+      "consumption": {},
+      "amount": {},
+      "location": {}
+    }
+  },
+  "emailSubject": "Electric Meter Bill - {clientName} - {date}",
+  "@emailSubject": {
+    "description": "Email subject for single bill",
+    "placeholders": {
+      "clientName": {},
+      "date": {}
+    }
+  },
+  "emailBulkSubject": "Electric Meter Bills - {clientName}",
+  "@emailBulkSubject": {
+    "description": "Email subject for multiple bills",
+    "placeholders": {
+      "clientName": {}
+    }
+  },
+  "emailGreeting": "Dear {clientName},",
+  "@emailGreeting": {
+    "description": "Email greeting",
+    "placeholders": {
+      "clientName": {}
+    }
+  },
+  "emailBillAttached": "Please find attached your electric meter bill.",
+  "@emailBillAttached": {
+    "description": "Message for attached bill"
+  },
+  "emailBulkBillsAttached": "Please find attached your electric meter bills.",
+  "@emailBulkBillsAttached": {
+    "description": "Message for attached bills"
+  },
+  "emailBillPeriod": "For the period {startDate} to {endDate}",
+  "@emailBillPeriod": {
+    "description": "Bill period",
+    "placeholders": {
+      "startDate": {},
+      "endDate": {}
+    }
+  },
+  "emailMeterLocation": "Meter Location: {location}",
+  "@emailMeterLocation": {
+    "description": "Meter location",
+    "placeholders": {
+      "location": {}
+    }
+  },
+  "emailBillDetails": "Bill Details:",
+  "@emailBillDetails": {
+    "description": "Bill details header"
+  },
+  "emailConsumption": "Consumption: {amount} kWh",
+  "@emailConsumption": {
+    "description": "Consumption in email",
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "emailDueDate": "Due Date: {date}",
+  "@emailDueDate": {
+    "description": "Due date in email",
+    "placeholders": {
+      "date": {}
+    }
+  },
+  "emailTotalBills": "Total Bills: {count}",
+  "@emailTotalBills": {
+    "description": "Total number of bills",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  "emailTotalConsumption": "Total Consumption: {amount} kWh",
+  "@emailTotalConsumption": {
+    "description": "Total consumption",
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "emailTotalAmount": "Total Amount: {amount}",
+  "@emailTotalAmount": {
+    "description": "Total amount",
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "emailUnpaidAmount": "Unpaid Amount: {amount}",
+  "@emailUnpaidAmount": {
+    "description": "Unpaid amount",
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "emailContact": "If you have any questions, please don't hesitate to contact us.",
+  "@emailContact": {
+    "description": "Contact information"
+  },
+  "emailSignature": "Best regards,\nElectric Meter Billing System",
+  "@emailSignature": {
+    "description": "Email signature"
+  },
+  "@communicationMethod": {
+    "description": "Title for communication method selection"
   }
 }

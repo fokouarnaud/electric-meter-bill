@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/models/currency_model.dart';
 import '../../../services/currency_service.dart';
 import 'currency_event.dart';
 import 'currency_state.dart';

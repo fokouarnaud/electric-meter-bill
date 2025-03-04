@@ -74,8 +74,7 @@ class PDFWidgets {
 
   static pw.Widget buildBillDetails(Bill bill) {
     final dateFormat = DateFormat('dd/MM/yyyy');
-    final currencyFormat = NumberFormat.currency(symbol: '€', locale: 'fr_FR');
-
+    
     return pw.Container(
       padding: const pw.EdgeInsets.all(10),
       decoration: pw.BoxDecoration(

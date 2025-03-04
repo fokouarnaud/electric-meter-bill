@@ -20,7 +20,7 @@ void main() async {
   await initializeDependencies(
     currencyApiKey: const String.fromEnvironment(
       'CURRENCY_API_KEY',
-      defaultValue: 'cur_live_CxNn6u71b6qQAmUKcM9r8NMwTIh0DF0frBU6rQ3Y',
+      defaultValue: 'cur_live_pGNJsPNeOxWJzPu4JbcckS0iJqZqcTx8XCYD5S8i',
     ),
   );
   runApp(const MyApp());
