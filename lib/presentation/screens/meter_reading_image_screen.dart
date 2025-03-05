@@ -1,3 +1,5 @@
+//presentation/screens/meter_reading_image_screen.dart
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';

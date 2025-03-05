@@ -1,3 +1,5 @@
+//lib/injection.dart 
+
 import 'package:get_it/get_it.dart';
 import 'data/datasources/database_helper.dart';
 import 'data/repositories/bill_repository_impl.dart';

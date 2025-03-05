@@ -1,3 +1,5 @@
+//lib/main.dart is the entry point of the application
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
