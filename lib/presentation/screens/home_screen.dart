@@ -789,8 +789,236 @@ class _HomeScreenState extends State<HomeScreen>
   // Reste des méthodes: _showEditMeterDialog, _showDeleteMeterDialog, etc.
 
   Future<void> _showEditMeterDialog(BuildContext context, Meter meter) async {
-    // Code similaire à _showAddMeterDialog mais avec des valeurs initiales
-    // ...
+    final l10n = AppLocalizations.of(context);
+    final formKey = GlobalKey<FormState>();
+    final nameController = TextEditingController(text: meter.name);
+    final locationController = TextEditingController(text: meter.location);
+    final clientNameController = TextEditingController(text: meter.clientName);
+    final pricePerKwhController = TextEditingController(
+        text: meter.pricePerKwh.toString());
+    String? contactName = meter.contactName;
+    String? contactPhone = meter.contactPhone;
+    String? contactEmail = meter.contactEmail;
+
+    await showDialog<void>(
+      context: context,
+      builder: (dialogContext) => StatefulBuilder(
+        builder: (context, setDialogState) => AlertDialog(
+          title: Text(l10n?.editMeter ?? 'Edit Meter'),
+          content: Form(
+            key: formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CommonWidgets.buildAccessibleFormField(
+                    context: context,
+                    label: l10n?.meterName ?? 'Meter Name',
+                    controller: nameController,
+                    prefixIcon: Icons.electric_meter,
+                    validator: (value) => value?.isEmpty ?? true
+                        ? l10n?.requiredField ?? 'Required field'
+                        : null,
+                    hintText:
+                        l10n?.meterNameHint ?? 'Enter a name for this meter',
+                  ),
+                  CommonWidgets.buildAccessibleFormField(
+                    context: context,
+                    label: l10n?.location ?? 'Location',
+                    controller: locationController,
+                    prefixIcon: Icons.location_on,
+                    validator: (value) => value?.isEmpty ?? true
+                        ? l10n?.requiredField ?? 'Required field'
+                        : null,
+                    hintText:
+                        l10n?.locationHint ?? 'Where is this meter located?',
+                  ),
+                  CommonWidgets.buildAccessibleFormField(
+                    context: context,
+                    label: l10n?.clientName ?? 'Client Name',
+                    controller: clientNameController,
+                    prefixIcon: Icons.person,
+                    validator: (value) => value?.isEmpty ?? true
+                        ? l10n?.requiredField ?? 'Required field'
+                        : null,
+                    hintText: l10n?.clientNameHint ?? 'Who is the client?',
+                  ),
+                  CommonWidgets.buildAccessibleFormField(
+                    context: context,
+                    label: l10n?.pricePerKwh ?? 'Price per kWh',
+                    controller: pricePerKwhController,
+                    prefixIcon: Icons.monetization_on,
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return l10n?.requiredField ?? 'Required field';
+                      }
+                      final price = double.tryParse(value!);
+                      if (price == null || price <= 0) {
+                        return l10n?.invalidPrice ?? 'Enter a valid price';
+                      }
+                      return null;
+                    },
+                    hintText: l10n?.pricePerKwhHint ?? 'Ex: 79.0',
+                  ),
+                  const SizedBox(height: 16),
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.contact_phone,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                l10n?.contactInformation ??
+                                    'Contact Information',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                l10n?.optional ?? 'Optional',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          const Divider(),
+                          ListTile(
+                            title: Text(
+                              contactName ??
+                                  (l10n?.selectContact ?? 'Select Contact'),
+                              style: TextStyle(
+                                color: contactName == null ? Colors.grey : null,
+                              ),
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (contactPhone != null)
+                                  Text(
+                                    [
+                                      AppLocalizations.of(context)?.phone ??
+                                          'Phone',
+                                      contactPhone,
+                                    ].join(': '),
+                                  ),
+                                if (contactEmail != null)
+                                  Text(
+                                    [
+                                      AppLocalizations.of(context)?.email ??
+                                          'Email',
+                                      contactEmail,
+                                    ].join(': '),
+                                  ),
+                              ],
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.person_add),
+                                  tooltip: AppLocalizations.of(context)
+                                          ?.selectContact ??
+                                      'Select Contact',
+                                  onPressed: () async {
+                                    final result =
+                                        await showDialog<Map<String, String?>>(
+                                      context: dialogContext,
+                                      builder: (_) =>
+                                          const ContactPickerDialog(),
+                                    );
+                                    if (result != null) {
+                                      setDialogState(() {
+                                        contactName = result['name'];
+                                        contactPhone = result['phone'];
+                                        contactEmail = result['email'];
+                                      });
+                                    }
+                                  },
+                                ),
+                                if (contactName != null)
+                                  IconButton(
+                                    icon: const Icon(Icons.clear),
+                                    tooltip: AppLocalizations.of(context)
+                                            ?.clearContact ??
+                                        'Clear Contact',
+                                    onPressed: () {
+                                      setDialogState(() {
+                                        contactName = null;
+                                        contactPhone = null;
+                                        contactEmail = null;
+                                      });
+                                    },
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(dialogContext),
+              child: Text(l10n?.cancel ?? 'Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (formKey.currentState?.validate() ?? false) {
+                  formKey.currentState?.save();
+                  final updatedMeter = MeterModel(
+                    id: meter.id,
+                    name: nameController.text,
+                    location: locationController.text,
+                    clientName: clientNameController.text,
+                    pricePerKwh: double.parse(pricePerKwhController.text),
+                    createdAt: meter.createdAt,
+                    updatedAt: DateTime.now(),
+                    contactName: contactName,
+                    contactPhone: contactPhone,
+                    contactEmail: contactEmail,
+                  );
+                  context.read<MeterBloc>().add(UpdateMeter(updatedMeter));
+                  Navigator.pop(dialogContext);
+
+                  // Show confirmation message
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                          l10n?.meterUpdated ?? 'Meter updated successfully'),
+                      behavior: SnackBarBehavior.floating,
+                    ),
+                  );
+                }
+              },
+              child: Text(l10n?.save ?? 'Save'),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    // Dispose of controllers
+    nameController.dispose();
+    locationController.dispose();
+    clientNameController.dispose();
+    pricePerKwhController.dispose();
   }
 
   Future<void> _showDeleteMeterDialog(BuildContext context, Meter meter) async {

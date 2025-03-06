@@ -20,10 +20,22 @@
   "createBackupDescription": "Créer une sauvegarde de toutes vos données",
   "restoreBackup": "Restaurer une sauvegarde",
   "restoreBackupDescription": "Restaurer les données à partir d'un fichier de sauvegarde",
+  "restoreBackupDesc": "Restaurer les données à partir d'un fichier de sauvegarde",
+  "@restoreBackupDesc": {
+    "description": "Description de l'option de restauration de sauvegarde"
+  },
   "shareBackup": "Partager la sauvegarde",
   "shareBackupDescription": "Partager le fichier de sauvegarde avec d'autres",
+  "shareBackupDesc": "Partager le fichier de sauvegarde avec d'autres",
+  "@shareBackupDesc": {
+    "description": "Description de l'option de partage de sauvegarde"
+  },
   "exportBackup": "Exporter la sauvegarde",
   "exportBackupDescription": "Enregistrer le fichier de sauvegarde sur l'appareil",
+  "exportBackupDesc": "Enregistrer le fichier de sauvegarde sur l'appareil",
+  "@exportBackupDesc": {
+    "description": "Description de l'option d'exportation de sauvegarde"
+  },
   "about": "À propos",
   "version": "Version",
   "selectTheme": "Sélectionner le thème",
@@ -194,5 +206,348 @@
   "pricePerKwhHint": "Ex: 79.0",
   "contactInformation": "Informations sur le contact",
   "meterAdded": "Compteur ajouté avec succès",
-  "meterDeleted": "Compteur supprimé avec succès"
+  "meterDeleted": "Compteur supprimé avec succès",
+  "autoRecognizedValue": "Nous avons détecté la valeur : {value}",
+  "enterReadingValue": "Entrer la valeur de lecture",
+  "selectDate":"Sélectionner la date",
+  "addNotes":"Ajouter des notes",
+  "saving":"Sauvegarde...",
+  "saveReading":"Sauvegarder la lecture",
+  "takePhotoInstructions": "Prenez une photo de votre compteur",
+  "choosePhoto": "Choisir une photo",
+  "valueRecognized": "Valeur reconnue",
+  "enterValue": "Entrez la valeur du relevé",
+  "useRecognizedValue": "Utiliser la valeur reconnue",
+  "dateFormat": "dd/MM/yyyy",
+  "currentSelectedDate": "Date actuellement sélectionnée :",
+  "tapToChange": "Appuyez pour modifier",
+  "notesHint": "Ajoutez des informations supplémentaires",
+  "analyzingImage": "Analyse de l'image...",
+  "errorCapturingImage": "Erreur lors de la capture de l'image : {error}",
+  "@errorCapturingImage": {
+    "description": "Message d'erreur lors de l'échec de la capture d'image",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "confirm": "Confirmer",
+  "pleaseAddPhoto": "Veuillez prendre une photo du compteur",
+  "verifyReadingInstructions": "Vérifiez la valeur du relevé extraite de l'image du compteur. Vous pouvez l'ajuster si nécessaire.",
+  "@verifyReadingInstructions": {
+    "description": "Instructions affichées sur l'écran de vérification du relevé"
+  },
+  "processingImageHint": "Cela peut prendre un moment",
+  "@processingImageHint": {
+    "description": "Indication affichée pendant le traitement de l'image du compteur"
+  },
+  "errorProcessingImage": "Erreur lors du traitement de l'image",
+  "@errorProcessingImage": {
+    "description": "Titre d'erreur lorsque le traitement de l'image échoue"
+  },
+  "enterManually": "Saisir la valeur manuellement",
+  "@enterManually": {
+    "description": "Invite à saisir la valeur de lecture manuellement"
+  },
+  "autoRecognized": "Reconnu automatiquement depuis l'image",
+  "@autoRecognized": {
+    "description": "Texte d'aide indiquant que la valeur a été reconnue automatiquement"
+  },
+  "manualEntry": "Veuillez saisir la valeur de lecture manuellement",
+  "@manualEntry": {
+    "description": "Texte d'aide pour la saisie manuelle de la valeur"
+  },
+  "recognizedExplanation": "Nous avons reconnu cette valeur depuis votre photo. Modifiez-la si elle est incorrecte.",
+  "@recognizedExplanation": {
+    "description": "Explication de la valeur reconnue"
+  },
+  "filter": "Filtrer",
+  "@filter": {
+    "description": "Filter button tooltip"
+  },
+  "filterReadings": "Filtrer les relevés",
+  "@filterReadings": {
+    "description": "Title for readings filter dialog"
+  },
+  "lastMonth": "Dernier mois",
+  "@lastMonth": {
+    "description": "Filter option for last month"
+  },
+  "last3Months": "3 derniers mois",
+  "@last3Months": {
+    "description": "Filter option for last 3 months"
+  },
+  "lastYear": "Dernière année",
+  "@lastYear": {
+    "description": "Filter option for last year"
+  },
+  "allTime": "Tout",
+  "@allTime": {
+    "description": "Filter option for all time"
+  },
+  "loadingReadings": "Chargement des relevés...",
+  "@loadingReadings": {
+    "description": "Message shown while loading readings"
+  },
+  "date": "Date",
+  "@date": {
+    "description": "Date label"
+  },
+  "options": "Options",
+  "@options": {
+    "description": "Options menu tooltip"
+  },
+  "consumptionStats": "Statistiques de consommation",
+  "@consumptionStats": {
+    "description": "Title for consumption statistics section"
+  },
+  "totalReadings": "Total des relevés",
+  "@totalReadings": {
+    "description": "Label for total readings count"
+  },
+  "lastConsumption": "Dernière consommation",
+  "@lastConsumption": {
+    "description": "Label for most recent consumption"
+  },
+  "processing": "Traitement en cours...",
+  "@processing": {
+    "description": "Generic processing message"
+  },
+  "deleting": "Suppression...",
+  "@deleting": {
+    "description": "Message shown while deleting"
+  },
+  "verify": "Vérifier",
+  "@verify": {
+    "description": "Verify action button text"
+  },
+  "addReadingToStart": "Ajoutez votre premier relevé pour commencer à suivre la consommation",
+  "@addReadingToStart": {
+    "description": "Message shown when no readings exist"
+  },
+  "addFirstReading": "Ajouter votre premier relevé",
+  "@addFirstReading": {
+    "description": "Button text to add first reading"
+  },
+  "noReadingsAvailable": "Aucun relevé disponible",
+  "@noReadingsAvailable": {
+    "description": "Message shown when no readings are available"
+  },
+  "editMeter": "Modifier le compteur",
+  "@editMeter": {
+    "description": "Title for edit meter dialog"
+  },
+  "meterUpdated": "Compteur mis à jour avec succès",
+  "@meterUpdated": {
+    "description": "Message shown when a meter is updated"
+  },
+  "rate": "Tarif",
+  "@rate": {
+    "description": "Label for rate or price per unit"
+  },
+  "all": "Tout",
+  "@all": {
+    "description": "Label for showing all items"
+  },
+  "noPaidBills": "Aucune facture payée",
+  "@noPaidBills": {
+    "description": "Message shown when there are no paid bills"
+  },
+  "viewAllBills": "Voir toutes les factures",
+  "@viewAllBills": {
+    "description": "Button text to view all bills"
+  },
+  "noUnpaidBills": "Aucune facture impayée",
+  "@noUnpaidBills": {
+    "description": "Message shown when there are no unpaid bills"
+  },
+  "generateFirstBill": "Générer votre première facture",
+  "@generateFirstBill": {
+    "description": "Button text to generate first bill"
+  },
+  "addMoreReadings": "Ajoutez d'abord plus de relevés",
+  "@addMoreReadings": {
+    "description": "Message shown when more readings are needed"
+  },
+  "generateBillInstructions": "Générer une facture à partir de vos relevés de compteur",
+  "@generateBillInstructions": {
+    "description": "Instructions for generating a bill"
+  },
+  "changeFilterInstructions": "Essayez de changer le filtre pour voir toutes les factures",
+  "@changeFilterInstructions": {
+    "description": "Instructions for changing bill filter"
+  },
+  "send": "Envoyer",
+  "@send": {
+    "description": "Send button text"
+  },
+  "invalidConsumption": "Consommation invalide : le relevé actuel doit être supérieur au relevé précédent",
+  "@invalidConsumption": {
+    "description": "Error message for invalid consumption"
+  },
+  "readingDetails": "Détails du relevé",
+  "@readingDetails": {
+    "description": "Title for reading details section"
+  },
+  "accessibility": "Accessibilité",
+  "@accessibility": {
+    "description": "Accessibility section in settings"
+  },
+  "standardMode": "Mode standard",
+  "@standardMode": {
+    "description": "Standard accessibility mode option"
+  },
+  "seniorMode": "Mode sénior",
+  "@seniorMode": {
+    "description": "Senior accessibility mode option"
+  },
+  "contrastMode": "Mode contraste élevé",
+  "@contrastMode": {
+    "description": "High contrast accessibility mode option"
+  },
+  "standardModeDesc": "Paramètres d'interface par défaut",
+  "@standardModeDesc": {
+    "description": "Description of standard mode"
+  },
+  "seniorModeDesc": "Texte plus grand et interface simplifiée",
+  "@seniorModeDesc": {
+    "description": "Description of senior mode"
+  },
+  "contrastModeDesc": "Contraste amélioré pour une meilleure visibilité",
+  "@contrastModeDesc": {
+    "description": "Description of high contrast mode"
+  },
+  "tutorials": "Tutoriels & Aide",
+  "@tutorials": {
+    "description": "Tutorials section in settings"
+  },
+  "tutorialsDescription": "Afficher les visites guidées et l'aide pour les fonctionnalités complexes",
+  "@tutorialsDescription": {
+    "description": "Description of tutorials option"
+  },
+  "neverUpdated": "Jamais mis à jour",
+  "@neverUpdated": {
+    "description": "Message montré quand les taux de change n'ont jamais été mis à jour"
+  },
+  "systemTheme": "Système",
+  "@systemTheme": {
+    "description": "Option de thème système"
+  },
+  "lightTheme": "Clair",
+  "@lightTheme": {
+    "description": "Option de thème clair"
+  },
+  "darkTheme": "Sombre",
+  "@darkTheme": {
+    "description": "Option de thème sombre"
+  },
+  "systemThemeDesc": "Suivre le thème du système",
+  "@systemThemeDesc": {
+    "description": "Description de l'option de thème système"
+  },
+  "close": "Fermer",
+  "@close": {
+    "description": "Texte du bouton fermer"
+  },
+  "accessibilityModeChanged": "Mode d'accessibilité modifié",
+  "@accessibilityModeChanged": {
+    "description": "Message affiché lorsque le mode d'accessibilité est modifié"
+  },
+  "exchangeRate": "Taux de change",
+  "@exchangeRate": {
+    "description": "Étiquette pour le taux de change"
+  },
+  "backupCreated": "Sauvegarde créée avec succès",
+  "@backupCreated": {
+    "description": "Message affiché lorsqu'une sauvegarde est créée"
+  },
+  "backupError": "Échec de la création de la sauvegarde",
+  "@backupError": {
+    "description": "Message d'erreur lors de l'échec de la création de sauvegarde"
+  },
+  "restoreConfirmation": "Ceci remplacera toutes les données actuelles par les données de sauvegarde. Cette action ne peut pas être annulée. Voulez-vous continuer ?",
+  "@restoreConfirmation": {
+    "description": "Message de confirmation pour la restauration de sauvegarde"
+  },
+  "restore": "Restaurer",
+  "@restore": {
+    "description": "Texte du bouton restaurer"
+  },
+  "backupRestored": "Sauvegarde restaurée avec succès",
+  "@backupRestored": {
+    "description": "Message affiché lorsqu'une sauvegarde est restaurée"
+  },
+  "restoreError": "Échec de la restauration de la sauvegarde",
+  "@restoreError": {
+    "description": "Message d'erreur lors de l'échec de la restauration"
+  },
+  "backupExported": "Sauvegarde exportée avec succès",
+  "@backupExported": {
+    "description": "Message affiché lorsqu'une sauvegarde est exportée"
+  },
+  "exportError": "Échec de l'exportation de la sauvegarde",
+  "@exportError": {
+    "description": "Message d'erreur lors de l'échec de l'exportation"
+  },
+  "resetTutorials": "Réinitialiser les tutoriels",
+  "@resetTutorials": {
+    "description": "Texte de l'option de réinitialisation des tutoriels"
+  },
+  "resetTutorialsDesc": "Afficher à nouveau tous les tutoriels",
+  "@resetTutorialsDesc": {
+    "description": "Description de l'option de réinitialisation des tutoriels"
+  },
+  "reset": "Réinitialiser",
+  "@reset": {
+    "description": "Texte du bouton réinitialiser"
+  },
+  "tutorialsReset": "Les tutoriels ont été réinitialisés",
+  "@tutorialsReset": {
+    "description": "Message affiché lorsque les tutoriels sont réinitialisés"
+  },
+  "creatingBackup": "Création de la sauvegarde...",
+  "@creatingBackup": {
+    "description": "Message affiché pendant la création de la sauvegarde"
+  },
+  "restoringBackup": "Restauration de la sauvegarde...",
+  "@restoringBackup": {
+    "description": "Message affiché pendant la restauration de la sauvegarde"
+  },
+  "preparingBackup": "Préparation de la sauvegarde...",
+  "@preparingBackup": {
+    "description": "Message affiché pendant la préparation de la sauvegarde"
+  },
+  "exportingBackup": "Exportation de la sauvegarde...",
+  "@exportingBackup": {
+    "description": "Message affiché pendant l'exportation de la sauvegarde"
+  },
+  "sharingError": "Échec du partage de la sauvegarde",
+  "@sharingError": {
+    "description": "Message d'erreur lors de l'échec du partage"
+  },
+  "resetTutorialsConfirm": "Êtes-vous sûr de vouloir réinitialiser tous les tutoriels ? Vous reverrez tous les dialogues de tutoriel.",
+  "@resetTutorialsConfirm": {
+    "description": "Message de confirmation pour la réinitialisation des tutoriels"
+  },
+  "lightThemeDesc": "Thème clair pour une utilisation diurne",
+  "@lightThemeDesc": {
+    "description": "Description de l'option de thème clair"
+  },
+  "darkThemeDesc": "Thème sombre pour une utilisation nocturne",
+  "@darkThemeDesc": {
+    "description": "Description de l'option de thème sombre"
+  },
+  "creating": "Création de la sauvegarde...",
+  "@creating": {
+    "description": "Message affiché pendant la création de la sauvegarde"
+  },
+  "preparing": "Préparation de la sauvegarde...",
+  "@preparing": {
+    "description": "Message affiché pendant la préparation de la sauvegarde"
+  },
+  "exporting": "Exportation de la sauvegarde...",
+  "@exporting": {
+    "description": "Message affiché pendant l'exportation de la sauvegarde"
+  }
 }

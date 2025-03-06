@@ -65,6 +65,10 @@
   "@usingCachedRates": {
     "description": "Message when using cached exchange rates"
   },
+  "neverUpdated": "Never updated",
+  "@neverUpdated": {
+    "description": "Message shown when exchange rates have never been updated"
+  },
   "appearance": "Appearance",
   "@appearance": {
     "description": "Appearance section in settings"
@@ -89,6 +93,10 @@
   "@restoreBackupDescription": {
     "description": "Description for restore backup option"
   },
+  "restoreBackupDesc": "Restore data from a backup file",
+  "@restoreBackupDesc": {
+    "description": "Description for restore backup option"
+  },
   "shareBackup": "Share Backup",
   "@shareBackup": {
     "description": "Share backup option"
@@ -97,12 +105,20 @@
   "@shareBackupDescription": {
     "description": "Description for share backup option"
   },
+  "shareBackupDesc": "Share backup file with others",
+  "@shareBackupDesc": {
+    "description": "Description for share backup option"
+  },
   "exportBackup": "Export Backup",
   "@exportBackup": {
     "description": "Export backup option"
   },
   "exportBackupDescription": "Save backup file to device",
   "@exportBackupDescription": {
+    "description": "Description for export backup option"
+  },
+  "exportBackupDesc": "Save backup file to device",
+  "@exportBackupDesc": {
     "description": "Description for export backup option"
   },
   "about": "About",
@@ -655,6 +671,9 @@
     }
   },
   "communicationMethod": "Communication Method",
+  "@communicationMethod": {
+    "description": "Title for communication method selection"
+  },
   "smsSingleBillMessage": "Dear {clientName},\n\nYour electricity bill for meter {meterName} is ready:\n\nPeriod: {startDate} - {endDate}\nConsumption: {consumption} kWh\nAmount: {amount} \n\nDue date: {dueDate}\n\nLocation: {location}",
   "@smsSingleBillMessage": {
     "description": "SMS message template for single bill",
@@ -780,30 +799,372 @@
   "@emailSignature": {
     "description": "Email signature"
   },
-  "@communicationMethod": {
-    "description": "Title for communication method selection"
+  "optional": "optional",
+  "@optional": {
+    "description": "card step optional text"
   },
-  "optional":"optional",
-  "@optional":{
-    "description":"card step optional text"
+  "yourMeters": "Your Meters",
+  "sort": "Sort",
+  "tryAgain": "Try Again",
+  "viewBills": "View Bills",
+  "viewReadings": "View Readings",
+  "addMeterToStart": "Add a meter to start tracking your electricity usage",
+  "addFirstMeter": "Add Your First Meter",
+  "moreOptions": "More Options",
+  "perKwh": "/kWh",
+  "sortBy": "Sort By",
+  "name": "Name",
+  "dateCreated": "Date Created",
+  "meterNameHint": "Enter a name for this meter",
+  "locationHint": "Where is this meter located?",
+  "clientNameHint": "Who is the client?",
+  "pricePerKwhHint": "Ex: 79.0",
+  "contactInformation": "Contact Information",
+  "meterAdded": "Meter added successfully",
+  "meterDeleted": "Meter deleted successfully",
+  "meterUpdated": "Meter updated successfully",
+  "@meterUpdated": {
+    "description": "Message shown when a meter is updated"
   },
-  "yourMeters":"Your Meters",
-  "sort":"Sort",
-  "tryAgain":"Try Again",
-  "viewBills":"View Bills",
-  "viewReadings":"View Readings",
-  "addMeterToStart":"Add a meter to start tracking your electricity usage",
-  "addFirstMeter":"Add Your First Meter",
-  "moreOptions":"More Options",
-  "perKwh":"/kWh",
-  "sortBy":"Sort By",
-  "name":"Name",
-  "dateCreated":"Date Created",
-  "meterNameHint":"Enter a name for this meter",
-  "locationHint":"Where is this meter located?",
-  "clientNameHint":"Who is the client?",
-  "pricePerKwhHint":"Ex: 79.0",
-  "contactInformation":"Contact Information",
-  "meterAdded":"Meter added successfully",
-  "meterDeleted":"Meter deleted successfully"
+  "autoRecognizedValue": "We detected the value: {value}",
+  "@autoRecognizedValue": {
+    "description": "Message shown when a value is automatically recognized",
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "enterReadingValue": "Enter Reading Value",
+  "selectDate": "Select Date",
+  "addNotes": "Add Notes",
+  "saving": "Saving...",
+  "saveReading": "Save Reading",
+  "takePhotoInstructions": "Take a photo of your meter",
+  "choosePhoto": "Choose Photo",
+  "valueRecognized": "Value recognized",
+  "enterValue": "Enter the meter reading value",
+  "useRecognizedValue": "Use recognized value",
+  "dateFormat": "MM/dd/yyyy",
+  "currentSelectedDate": "Currently selected date:",
+  "tapToChange": "Tap to change",
+  "notesHint": "Add any additional information",
+  "analyzingImage": "Analyzing image...",
+  "errorCapturingImage": "Error capturing image: {error}",
+  "@errorCapturingImage": {
+    "description": "Error message when capturing image fails",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "confirm": "Confirm",
+  "pleaseAddPhoto": "Please take a photo of the meter",
+  "verifyReadingInstructions": "Verify the reading value extracted from the meter image. You can adjust it if needed.",
+  "@verifyReadingInstructions": {
+    "description": "Instructions shown on the reading verification screen"
+  },
+  "processingImageHint": "This may take a moment",
+  "@processingImageHint": {
+    "description": "Hint shown while processing meter reading image"
+  },
+  "errorProcessingImage": "Error processing image",
+  "@errorProcessingImage": {
+    "description": "Error title when image processing fails"
+  },
+  "enterManually": "Enter value manually",
+  "@enterManually": {
+    "description": "Prompt to enter reading value manually"
+  },
+  "autoRecognized": "Auto-recognized from image",
+  "@autoRecognized": {
+    "description": "Helper text indicating value was automatically recognized"
+  },
+  "manualEntry": "Please enter the reading value manually",
+  "@manualEntry": {
+    "description": "Helper text for manual value entry"
+  },
+  "recognizedExplanation": "We recognized this value from your photo. Edit if it's incorrect.",
+  "@recognizedExplanation": {
+    "description": "Explanation of recognized value"
+  },
+  "filter": "Filter",
+  "@filter": {
+    "description": "Filter button tooltip"
+  },
+  "filterReadings": "Filter Readings",
+  "@filterReadings": {
+    "description": "Title for readings filter dialog"
+  },
+  "lastMonth": "Last Month",
+  "@lastMonth": {
+    "description": "Filter option for last month"
+  },
+  "last3Months": "Last 3 Months",
+  "@last3Months": {
+    "description": "Filter option for last 3 months"
+  },
+  "lastYear": "Last Year",
+  "@lastYear": {
+    "description": "Filter option for last year"
+  },
+  "allTime": "All Time",
+  "@allTime": {
+    "description": "Filter option for all time"
+  },
+  "loadingReadings": "Loading readings...",
+  "@loadingReadings": {
+    "description": "Message shown while loading readings"
+  },
+  "date": "Date",
+  "@date": {
+    "description": "Date label"
+  },
+  "options": "Options",
+  "@options": {
+    "description": "Options menu tooltip"
+  },
+  "consumptionStats": "Consumption Statistics",
+  "@consumptionStats": {
+    "description": "Title for consumption statistics section"
+  },
+  "totalReadings": "Total Readings",
+  "@totalReadings": {
+    "description": "Label for total readings count"
+  },
+  "lastConsumption": "Last Consumption",
+  "@lastConsumption": {
+    "description": "Label for most recent consumption"
+  },
+  "processing": "Processing...",
+  "@processing": {
+    "description": "Generic processing message"
+  },
+  "deleting": "Deleting...",
+  "@deleting": {
+    "description": "Message shown while deleting"
+  },
+  "verify": "Verify",
+  "@verify": {
+    "description": "Verify action button text"
+  },
+  "addReadingToStart": "Add your first reading to start tracking consumption",
+  "@addReadingToStart": {
+    "description": "Message shown when no readings exist"
+  },
+  "addFirstReading": "Add Your First Reading",
+  "@addFirstReading": {
+    "description": "Button text to add first reading"
+  },
+  "noReadingsAvailable": "No readings available",
+  "@noReadingsAvailable": {
+    "description": "Message shown when no readings are available"
+  },
+  "editMeter": "Edit Meter",
+  "@editMeter": {
+    "description": "Title for edit meter dialog"
+  },
+  "rate": "Rate",
+  "@rate": {
+    "description": "Label for rate or price per unit"
+  },
+  "all": "All",
+  "@all": {
+    "description": "Label for showing all items"
+  },
+  "noPaidBills": "No paid bills",
+  "@noPaidBills": {
+    "description": "Message shown when there are no paid bills"
+  },
+  "viewAllBills": "View All Bills",
+  "@viewAllBills": {
+    "description": "Button text to view all bills"
+  },
+  "noUnpaidBills": "No unpaid bills",
+  "@noUnpaidBills": {
+    "description": "Message shown when there are no unpaid bills"
+  },
+  "generateFirstBill": "Generate Your First Bill",
+  "@generateFirstBill": {
+    "description": "Button text to generate first bill"
+  },
+  "addMoreReadings": "Add More Readings First",
+  "@addMoreReadings": {
+    "description": "Message shown when more readings are needed"
+  },
+  "generateBillInstructions": "Generate a bill from your meter readings",
+  "@generateBillInstructions": {
+    "description": "Instructions for generating a bill"
+  },
+  "changeFilterInstructions": "Try changing the filter to see all bills",
+  "@changeFilterInstructions": {
+    "description": "Instructions for changing bill filter"
+  },
+  "send": "Send",
+  "@send": {
+    "description": "Send button text"
+  },
+  "invalidConsumption": "Invalid consumption: current reading must be greater than previous reading",
+  "@invalidConsumption": {
+    "description": "Error message for invalid consumption"
+  },
+  "readingDetails": "Reading Details",
+  "@readingDetails": {
+    "description": "Title for reading details section"
+  },
+  "accessibility": "Accessibility",
+  "@accessibility": {
+    "description": "Accessibility section in settings"
+  },
+  "standardMode": "Standard Mode",
+  "@standardMode": {
+    "description": "Standard accessibility mode option"
+  },
+  "seniorMode": "Senior Mode",
+  "@seniorMode": {
+    "description": "Senior accessibility mode option"
+  },
+  "contrastMode": "High Contrast Mode",
+  "@contrastMode": {
+    "description": "High contrast accessibility mode option"
+  },
+  "standardModeDesc": "Default interface settings",
+  "@standardModeDesc": {
+    "description": "Description of standard mode"
+  },
+  "seniorModeDesc": "Larger text and simpler interface",
+  "@seniorModeDesc": {
+    "description": "Description of senior mode"
+  },
+  "contrastModeDesc": "Improved contrast for better visibility",
+  "@contrastModeDesc": {
+    "description": "Description of high contrast mode"
+  },
+  "tutorials": "Tutorials & Help",
+  "@tutorials": {
+    "description": "Tutorials section in settings"
+  },
+  "tutorialsDescription": "Show guided tours and help for complex features",
+  "@tutorialsDescription": {
+    "description": "Description of tutorials option"
+  },
+  "systemTheme": "System",
+  "@systemTheme": {
+    "description": "System theme option"
+  },
+  "lightTheme": "Light",
+  "@lightTheme": {
+    "description": "Light theme option"
+  },
+  "darkTheme": "Dark",
+  "@darkTheme": {
+    "description": "Dark theme option"
+  },
+  "systemThemeDesc": "Follow system theme",
+  "@systemThemeDesc": {
+    "description": "Description of system theme option"
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Close button text"
+  },
+  "accessibilityModeChanged": "Accessibility mode changed",
+  "@accessibilityModeChanged": {
+    "description": "Message shown when accessibility mode is changed"
+  },
+  "exchangeRate": "Exchange Rate",
+  "@exchangeRate": {
+    "description": "Label for currency exchange rate"
+  },
+  "backupCreated": "Backup created successfully",
+  "@backupCreated": {
+    "description": "Message shown when backup is created"
+  },
+  "backupError": "Failed to create backup",
+  "@backupError": {
+    "description": "Error message when backup creation fails"
+  },
+  "restoreConfirmation": "This will replace all current data with the backup data. This action cannot be undone. Are you sure you want to continue?",
+  "@restoreConfirmation": {
+    "description": "Confirmation message for restoring backup"
+  },
+  "restore": "Restore",
+  "@restore": {
+    "description": "Restore button text"
+  },
+  "backupRestored": "Backup restored successfully",
+  "@backupRestored": {
+    "description": "Message shown when backup is restored"
+  },
+  "restoreError": "Failed to restore backup",
+  "@restoreError": {
+    "description": "Error message when backup restoration fails"
+  },
+  "backupExported": "Backup exported successfully",
+  "@backupExported": {
+    "description": "Message shown when backup is exported"
+  },
+  "exportError": "Failed to export backup",
+  "@exportError": {
+    "description": "Error message when backup export fails"
+  },
+  "resetTutorials": "Reset Tutorials",
+  "@resetTutorials": {
+    "description": "Reset tutorials option text"
+  },
+  "resetTutorialsDesc": "Show all tutorials again",
+  "@resetTutorialsDesc": {
+    "description": "Description for reset tutorials option"
+  },
+  "reset": "Reset",
+  "@reset": {
+    "description": "Reset button text"
+  },
+  "tutorialsReset": "Tutorials have been reset",
+  "@tutorialsReset": {
+    "description": "Message shown when tutorials are reset"
+  },
+  "creatingBackup": "Creating backup...",
+  "@creatingBackup": {
+    "description": "Message shown while creating backup"
+  },
+  "restoringBackup": "Restoring backup...",
+  "@restoringBackup": {
+    "description": "Message shown while restoring backup"
+  },
+  "preparingBackup": "Preparing backup...",
+  "@preparingBackup": {
+    "description": "Message shown while preparing backup"
+  },
+  "exportingBackup": "Exporting backup...",
+  "@exportingBackup": {
+    "description": "Message shown while exporting backup"
+  },
+  "sharingError": "Failed to share backup",
+  "@sharingError": {
+    "description": "Error message when sharing backup fails"
+  },
+  "resetTutorialsConfirm": "Are you sure you want to reset all tutorials? You will see all tutorial dialogs again.",
+  "@resetTutorialsConfirm": {
+    "description": "Confirmation message for resetting tutorials"
+  },
+  "lightThemeDesc": "Light theme for daytime use",
+  "@lightThemeDesc": {
+    "description": "Description of light theme option"
+  },
+  "darkThemeDesc": "Dark theme for nighttime use",
+  "@darkThemeDesc": {
+    "description": "Description of dark theme option"
+  },
+  "creating": "Creating backup...",
+  "@creating": {
+    "description": "Message shown while creating backup"
+  },
+  "preparing": "Preparing backup...",
+  "@preparing": {
+    "description": "Message shown while preparing backup"
+  },
+  "exporting": "Exporting backup...",
+  "@exporting": {
+    "description": "Message shown while exporting backup"
+  }
 }
