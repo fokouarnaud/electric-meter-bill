@@ -1,8 +1,10 @@
+//presentation\bloc\meter\meter_bloc.dart
+
+import 'package:electric_meter_bill/domain/repositories/meter_repository.dart';
+import 'package:electric_meter_bill/presentation/bloc/meter/meter_event.dart';
+import 'package:electric_meter_bill/presentation/bloc/meter/meter_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../domain/repositories/meter_repository.dart';
-import 'meter_event.dart';
-import 'meter_state.dart';
 
 class MeterBloc extends Bloc<MeterEvent, MeterState> {
   final MeterRepository repository;
@@ -13,6 +15,7 @@ class MeterBloc extends Bloc<MeterEvent, MeterState> {
     on<UpdateMeter>(_onUpdateMeter);
     on<DeleteMeter>(_onDeleteMeter);
     on<RefreshMeters>(_onRefreshMeters);
+    on<SortMeters>(_onSortMeters);
   }
 
   Future<void> _onLoadMeters(LoadMeters event, Emitter<MeterState> emit) async {
@@ -124,6 +127,35 @@ class MeterBloc extends Bloc<MeterEvent, MeterState> {
       ));
     } catch (e) {
       debugPrint('Error refreshing meters: $e');
+      emit(MeterError(e.toString()));
+    }
+  }
+
+  Future<void> _onSortMeters(SortMeters event, Emitter<MeterState> emit) async {
+    try {
+      final currentState = state;
+      if (currentState is MetersLoaded) {
+        final sortedMeters = List.of(currentState.meters);
+        switch (event.criteria) {
+          case 'name':
+            sortedMeters.sort((a, b) => a.name.compareTo(b.name));
+            break;
+          case 'date':
+            sortedMeters.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+            break;
+          case 'location':
+            sortedMeters.sort((a, b) => a.location.compareTo(b.location));
+            break;
+        }
+        emit(MetersLoaded(
+          meters: sortedMeters,
+          totalMeters: currentState.totalMeters,
+          totalConsumption: currentState.totalConsumption,
+          totalAmount: currentState.totalAmount,
+        ));
+      }
+    } catch (e) {
+      debugPrint('Error sorting meters: $e');
       emit(MeterError(e.toString()));
     }
   }

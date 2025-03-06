@@ -1,3 +1,5 @@
+//domain/entities/meter.dart
+
 class Meter {
   final String id;
   final String name;

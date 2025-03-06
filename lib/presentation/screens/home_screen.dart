@@ -1,24 +1,23 @@
 //presentation/screens/home_screen.dart
 
+import 'package:electric_meter_bill/data/models/meter_model.dart';
+import 'package:electric_meter_bill/domain/entities/meter.dart';
+import 'package:electric_meter_bill/injection.dart';
+import 'package:electric_meter_bill/presentation/bloc/currency/currency_bloc.dart';
+import 'package:electric_meter_bill/presentation/bloc/meter/meter_bloc.dart';
+import 'package:electric_meter_bill/presentation/bloc/meter/meter_event.dart';
+import 'package:electric_meter_bill/presentation/bloc/meter/meter_state.dart';
+import 'package:electric_meter_bill/presentation/bloc/meter_reading/meter_reading_bloc.dart';
+import 'package:electric_meter_bill/presentation/bloc/meter_reading/meter_reading_event.dart';
+import 'package:electric_meter_bill/presentation/screens/add_meter_reading_screen.dart';
+import 'package:electric_meter_bill/presentation/screens/bills_screen.dart';
+import 'package:electric_meter_bill/presentation/screens/meter_readings_screen.dart';
+import 'package:electric_meter_bill/presentation/screens/settings_screen.dart';
+import 'package:electric_meter_bill/presentation/widgets/contact_picker_dialog.dart';
+import 'package:electric_meter_bill/services/currency_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../data/models/meter_model.dart';
-import '../../domain/entities/meter.dart';
-import '../bloc/meter/meter_bloc.dart';
-import '../bloc/meter/meter_event.dart';
-import '../bloc/meter/meter_state.dart';
-import '../bloc/currency/currency_bloc.dart';
-import '../bloc/currency/currency_state.dart';
-import '../../services/currency_service.dart';
-import '../bloc/meter_reading/meter_reading_bloc.dart';
-import '../bloc/meter_reading/meter_reading_event.dart';
-import '../widgets/contact_picker_dialog.dart';
-import 'add_meter_reading_screen.dart';
-import 'bills_screen.dart';
-import 'meter_readings_screen.dart';
-import 'settings_screen.dart';
-import '../../injection.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -84,9 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildStatisticsCard(BuildContext context, MetersLoaded state) {
     final l10n = AppLocalizations.of(context);
     return Card(
-      margin: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -199,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(l10n?.readings ?? 'View Readings'),
                   onTap: () => Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<Widget>(
                       builder: (context) => BlocProvider(
                         create: (context) => getIt<MeterReadingBloc>()
                           ..add(LoadMeterReadings(meter.id)),
@@ -212,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(l10n?.bills ?? 'View Bills'),
                   onTap: () => Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<Widget>(
                       builder: (context) => BillsScreen(meter: meter),
                     ),
                   ),
@@ -259,24 +258,36 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: InputDecoration(
                       labelText: l10n?.meterName ?? 'Meter Name'
                     ),
-                    validator: (value) =>
-                        value?.isEmpty ?? true ? l10n?.requiredField ?? 'Required field' : null,
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return l10n?.requiredField ?? 'Required field';
+                      }
+                      return null;
+                    },
                     onSaved: (value) => name = value ?? '',
                   ),
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: l10n?.location ?? 'Location'
                     ),
-                    validator: (value) =>
-                        value?.isEmpty ?? true ? l10n?.requiredField ?? 'Required field' : null,
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return l10n?.requiredField ?? 'Required field';
+                      }
+                      return null;
+                    },
                     onSaved: (value) => location = value ?? '',
                   ),
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: l10n?.clientName ?? 'Client Name'
                     ),
-                    validator: (value) =>
-                        value?.isEmpty ?? true ? l10n?.requiredField ?? 'Required field' : null,
+                    validator: (value) {
+                      if (value?.isEmpty ?? true) {
+                        return l10n?.requiredField ?? 'Required field';
+                      }
+                      return null;
+                    },
                     onSaved: (value) => clientName = value ?? '',
                   ),
                   TextFormField(
@@ -285,7 +296,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                      if (value?.isEmpty ?? true) return l10n?.requiredField ?? 'Required field';
+                      if (value?.isEmpty ?? true) {
+                        return l10n?.requiredField ?? 'Required field';
+                      }
                       final price = double.tryParse(value!);
                       if (price == null || price <= 0) {
                         return l10n?.invalidPrice ?? 'Enter a valid price';
@@ -305,8 +318,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (contactPhone != null) Text('${AppLocalizations.of(context)?.phone ?? 'Phone'}: $contactPhone'),
-                        if (contactEmail != null) Text('${AppLocalizations.of(context)?.email ?? 'Email'}: $contactEmail'),
+                        if (contactPhone != null)
+                          Text(
+                            '${AppLocalizations.of(context)?.phone ?? 'Phone'}'
+                            ': $contactPhone',
+                          ),
+                        if (contactEmail != null)
+                          Text(
+                            '${AppLocalizations.of(context)?.email ?? 'Email'}'
+                            ': $contactEmail',
+                          ),
                       ],
                     ),
                     trailing: Row(
@@ -314,7 +335,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         IconButton(
                           icon: const Icon(Icons.person_add),
-                          tooltip: AppLocalizations.of(context)?.selectContact ?? 'Select Contact',
+                          tooltip: AppLocalizations.of(context)
+                                  ?.selectContact ??
+                              'Select Contact',
                           onPressed: () async {
                             final result =
                                 await showDialog<Map<String, String?>>(
@@ -333,7 +356,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         if (contactName != null)
                           IconButton(
                             icon: const Icon(Icons.clear),
-                            tooltip: AppLocalizations.of(context)?.clearContact ?? 'Clear Contact',
+                            tooltip: AppLocalizations.of(context)
+                                    ?.clearContact ??
+                                'Clear Contact',
                             onPressed: () {
                               setDialogState(() {
                                 contactName = null;
@@ -394,7 +419,7 @@ class _HomeScreenState extends State<HomeScreen> {
     String? contactPhone = meter.contactPhone;
     String? contactEmail = meter.contactEmail;
 
-    await showDialog(
+    await showDialog<void>(
       context: context,
       builder: (dialogContext) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
@@ -411,7 +436,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       labelText: l10n?.meterName ?? 'Meter Name',
                     ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? l10n?.requiredField ?? 'Required field' : null,
+                        value?.isEmpty ?? true ? l10n?.requiredField ?? 
+                        'Required field' : null,
                     onSaved: (value) => name = value ?? '',
                   ),
                   TextFormField(
@@ -420,7 +446,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       labelText: l10n?.location ?? 'Location',
                     ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? l10n?.requiredField ?? 'Required field' : null,
+                        value?.isEmpty ?? true ? l10n?.requiredField ?? 
+                        'Required field' : null,
                     onSaved: (value) => location = value ?? '',
                   ),
                   TextFormField(
@@ -429,7 +456,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       labelText: l10n?.clientName ?? 'Client Name',
                     ),
                     validator: (value) =>
-                        value?.isEmpty ?? true ? l10n?.requiredField ?? 'Required field' : null,
+                        value?.isEmpty ?? true ? l10n?.requiredField ?? 
+                        'Required field' : null,
                     onSaved: (value) => clientName = value ?? '',
                   ),
                   TextFormField(
@@ -439,7 +467,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                      if (value?.isEmpty ?? true) return l10n?.requiredField ?? 'Required field';
+                      if (value?.isEmpty ?? true){ 
+                        return l10n?.requiredField ?? 'Required field';
+                      }
                       final price = double.tryParse(value!);
                       if (price == null || price <= 0) {
                         return l10n?.invalidPrice ?? 'Enter a valid price';
@@ -545,7 +575,8 @@ class _HomeScreenState extends State<HomeScreen> {
         content: Text(
           l10n?.deleteConfirmation != null
               ? l10n!.deleteConfirmation(meter.name)
-              : 'Are you sure you want to delete ${meter.name}? This will also delete all associated readings and bills.',
+              : 'Are you sure you want to delete ${meter.name}? '
+                  'This will also delete all associated readings and bills.',
         ),
         actions: [
           TextButton(
@@ -560,7 +591,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
 
-    if (confirmed == true && context.mounted) {
+    if ((confirmed ?? false) && context.mounted) {
       context.read<MeterBloc>().add(DeleteMeter(meter.id));
     }
   }

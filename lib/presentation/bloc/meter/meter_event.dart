@@ -29,3 +29,9 @@ class DeleteMeter extends MeterEvent {
 class RefreshMeters extends MeterEvent {
   const RefreshMeters();
 }
+
+class SortMeters extends MeterEvent {
+  final String criteria;
+  
+  const SortMeters(this.criteria);
+}

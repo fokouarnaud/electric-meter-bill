@@ -125,6 +125,10 @@
   "@selectCurrency": {
     "description": "Title for currency selection dialog"
   },
+  "selectMeter": "Select Meter",
+  "@selectMeter": {
+    "description": "Title for meter selection dialog"
+  },
   "home": "Home",
   "@home": {
     "description": "Home screen title"
@@ -520,7 +524,7 @@
   },
   "previousReading": "Previous Reading",
   "@previousReading": {
-    "description": "Label for previous meter reading"
+    "description": "Label for previous reading"
   },
   "clearContact": "Clear Contact",
   "@clearContact": {
@@ -778,5 +782,28 @@
   },
   "@communicationMethod": {
     "description": "Title for communication method selection"
-  }
+  },
+  "optional":"optional",
+  "@optional":{
+    "description":"card step optional text"
+  },
+  "yourMeters":"Your Meters",
+  "sort":"Sort",
+  "tryAgain":"Try Again",
+  "viewBills":"View Bills",
+  "viewReadings":"View Readings",
+  "addMeterToStart":"Add a meter to start tracking your electricity usage",
+  "addFirstMeter":"Add Your First Meter",
+  "moreOptions":"More Options",
+  "perKwh":"/kWh",
+  "sortBy":"Sort By",
+  "name":"Name",
+  "dateCreated":"Date Created",
+  "meterNameHint":"Enter a name for this meter",
+  "locationHint":"Where is this meter located?",
+  "clientNameHint":"Who is the client?",
+  "pricePerKwhHint":"Ex: 79.0",
+  "contactInformation":"Contact Information",
+  "meterAdded":"Meter added successfully",
+  "meterDeleted":"Meter deleted successfully"
 }
