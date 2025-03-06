@@ -204,7 +204,7 @@
   "locationHint": "Où se trouve ce compteur ?",
   "clientNameHint": "Qui est le client ?",
   "pricePerKwhHint": "Ex: 79.0",
-  "contactInformation": "Informations sur le contact",
+  "contactInformation": "Informations contact",
   "meterAdded": "Compteur ajouté avec succès",
   "meterDeleted": "Compteur supprimé avec succès",
   "autoRecognizedValue": "Nous avons détecté la valeur : {value}",

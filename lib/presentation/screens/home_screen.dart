@@ -81,9 +81,6 @@ class _HomeScreenState extends State<HomeScreen>
                   // Carte de statistiques améliorée
                   _buildEnhancedStatsCard(context, state),
 
-                  // Boutons d'action rapide
-                  _buildQuickActionButtons(context),
-
                   // En-tête de la liste avec comptage
                   Padding(
                     padding:
@@ -628,7 +625,7 @@ class _HomeScreenState extends State<HomeScreen>
                   const SizedBox(height: 16),
                   Card(
                     child: Padding(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(8),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
