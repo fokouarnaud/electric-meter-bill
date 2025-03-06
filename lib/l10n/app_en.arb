@@ -1166,5 +1166,53 @@
   "exporting": "Exporting backup...",
   "@exporting": {
     "description": "Message shown while exporting backup"
+  },
+  "skip": "Skip",
+  "@skip": {
+    "description": "Skip button text for onboarding"
+  },
+  "onboardingTitle1": "Welcome!",
+  "@onboardingTitle1": {
+    "description": "First onboarding screen title"
+  },
+  "onboardingDesc1": "This app helps you manage your electric meters and easily create bills.",
+  "@onboardingDesc1": {
+    "description": "First onboarding screen description"
+  },
+  "onboardingTitle2": "Add your meters",
+  "@onboardingTitle2": {
+    "description": "Second onboarding screen title"
+  },
+  "onboardingDesc2": "Start by adding one or more meters with basic information.",
+  "@onboardingDesc2": {
+    "description": "Second onboarding screen description"
+  },
+  "onboardingTitle3": "Take meter readings",
+  "@onboardingTitle3": {
+    "description": "Third onboarding screen title"
+  },
+  "onboardingDesc3": "Take a photo of your meter to automatically record its value.",
+  "@onboardingDesc3": {
+    "description": "Third onboarding screen description"
+  },
+  "onboardingTitle4": "Generate bills",
+  "@onboardingTitle4": {
+    "description": "Fourth onboarding screen title"
+  },
+  "onboardingDesc4": "Create bills based on your readings and send them via email or SMS.",
+  "@onboardingDesc4": {
+    "description": "Fourth onboarding screen description"
+  },
+  "next": "Next",
+  "@next": {
+    "description": "Next button text"
+  },
+  "previous": "Previous",
+  "@previous": {
+    "description": "Previous button text"
+  },
+  "getStarted": "Get Started",
+  "@getStarted": {
+    "description": "Get started button text"
   }
 }

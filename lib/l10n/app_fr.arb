@@ -549,5 +549,53 @@
   "exporting": "Exportation de la sauvegarde...",
   "@exporting": {
     "description": "Message affiché pendant l'exportation de la sauvegarde"
+  },
+  "skip": "Passer",
+  "@skip": {
+    "description": "Skip button text for onboarding"
+  },
+  "onboardingTitle1": "Bienvenue !",
+  "@onboardingTitle1": {
+    "description": "First onboarding screen title"
+  },
+  "onboardingDesc1": "Cette application vous aide à gérer vos compteurs électriques et à créer facilement des factures.",
+  "@onboardingDesc1": {
+    "description": "First onboarding screen description"
+  },
+  "onboardingTitle2": "Ajoutez vos compteurs",
+  "@onboardingTitle2": {
+    "description": "Second onboarding screen title"
+  },
+  "onboardingDesc2": "Commencez par ajouter un ou plusieurs compteurs avec les informations de base.",
+  "@onboardingDesc2": {
+    "description": "Second onboarding screen description"
+  },
+  "onboardingTitle3": "Relevez les compteurs",
+  "@onboardingTitle3": {
+    "description": "Third onboarding screen title"
+  },
+  "onboardingDesc3": "Prenez une photo de votre compteur pour enregistrer automatiquement sa valeur.",
+  "@onboardingDesc3": {
+    "description": "Third onboarding screen description"
+  },
+  "onboardingTitle4": "Générez des factures",
+  "@onboardingTitle4": {
+    "description": "Fourth onboarding screen title"
+  },
+  "onboardingDesc4": "Créez des factures basées sur vos relevés et envoyez-les par email ou SMS.",
+  "@onboardingDesc4": {
+    "description": "Fourth onboarding screen description"
+  },
+  "next": "Suivant",
+  "@next": {
+    "description": "Next button text"
+  },
+  "previous": "Précédent",
+  "@previous": {
+    "description": "Previous button text"
+  },
+  "getStarted": "Commencer",
+  "@getStarted": {
+    "description": "Get started button text"
   }
 }
