@@ -1,56 +1,63 @@
-import 'package:electric_meter_bill/injection.dart';
-import 'package:electric_meter_bill/presentation/bloc/currency/currency_bloc.dart';
-import 'package:electric_meter_bill/presentation/bloc/currency/currency_event.dart';
-import 'package:electric_meter_bill/presentation/bloc/language/language_bloc.dart';
-import 'package:electric_meter_bill/presentation/bloc/language/language_event.dart';
-import 'package:electric_meter_bill/presentation/bloc/meter/meter_bloc.dart';
-import 'package:electric_meter_bill/presentation/bloc/meter/meter_event.dart';
-import 'package:electric_meter_bill/presentation/bloc/theme/theme_bloc.dart';
-import 'package:electric_meter_bill/presentation/bloc/theme/theme_event.dart';
-import 'package:electric_meter_bill/presentation/screens/home_screen.dart';
-import 'package:electric_meter_bill/services/theme_service.dart';
+// lib/main.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'injection.dart';
+import 'presentation/bloc/meter/meter_bloc.dart';
+import 'presentation/bloc/meter/meter_event.dart';
+import 'presentation/bloc/theme/theme_bloc.dart';
+import 'presentation/bloc/theme/theme_event.dart';
+import 'presentation/bloc/language/language_bloc.dart';
+import 'presentation/bloc/language/language_event.dart';
+import 'presentation/bloc/currency/currency_bloc.dart';
+import 'presentation/bloc/currency/currency_event.dart';
+import 'presentation/screens/home_screen.dart';
+import 'presentation/screens/onboarding_screen.dart';
+import 'services/theme_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  
   await initializeDependencies(
     currencyApiKey: const String.fromEnvironment(
       'CURRENCY_API_KEY',
       defaultValue: 'cur_live_pGNJsPNeOxWJzPu4JbcckS0iJqZqcTx8XCYD5S8i',
     ),
   );
-  runApp(const MyApp());
+  
+  // Vérifier si l'utilisateur a déjà vu l'onboarding
+  final prefs = await SharedPreferences.getInstance();
+  final bool onboardingCompleted = prefs.getBool('onboarding_completed') ?? false;
+  
+  runApp(MyApp(onboardingCompleted: onboardingCompleted));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool onboardingCompleted;
+  
+  const MyApp({
+    super.key,
+    required this.onboardingCompleted,
+  });
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => ThemeBloc()..add(const LoadTheme())),
-        BlocProvider(
-          create: (_) => getIt<MeterBloc>()..add(const LoadMeters()),
-        ),
-        BlocProvider(
-          create: (_) => getIt<LanguageBloc>()..add(const LoadLanguage()),
-        ),
-        BlocProvider(
-          create: (_) => getIt<CurrencyBloc>()..add(const LoadCurrency()),
-        ),
+        BlocProvider(create: (_) => ThemeBloc()..add(LoadTheme())),
+        BlocProvider(create: (_) => getIt<MeterBloc>()..add(LoadMeters())),
+        BlocProvider(create: (_) => getIt<LanguageBloc>()..add(const LoadLanguage())),
+        BlocProvider(create: (_) => getIt<CurrencyBloc>()..add(LoadCurrency())),
       ],
       child: Builder(
         builder: (context) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false, // Enlever le bandeau "Debug"
             title: 'Electric Meter Billing',
-            onGenerateTitle: (context) =>
-                AppLocalizations.of(context)?.appTitle ??
-                'Electric Meter Billing',
+            onGenerateTitle: (context) => AppLocalizations.of(context)?.appTitle ?? 'Electric Meter Billing',
             theme: ThemeService.getLightTheme(),
             darkTheme: ThemeService.getDarkTheme(),
             themeMode: context.watch<ThemeBloc>().state.themeMode,
@@ -65,7 +72,9 @@ class MyApp extends StatelessWidget {
               Locale('fr'),
               Locale('en'),
             ],
-            home: const HomeScreen(),
+            home: onboardingCompleted 
+                ? const HomeScreen()
+                : const OnboardingScreen(),
           );
         },
       ),

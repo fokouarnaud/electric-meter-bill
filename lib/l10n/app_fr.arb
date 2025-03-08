@@ -228,7 +228,8 @@
     "description": "Message d'erreur lors de l'échec de la capture d'image",
     "placeholders": {
       "error": {
-        "type": "String"
+        "type": "String",
+        "example": "Permission refusée"
       }
     }
   },
@@ -597,5 +598,106 @@
   "getStarted": "Commencer",
   "@getStarted": {
     "description": "Get started button text"
+  },
+  "guidedReading": "Assistant de relevé",
+  "@guidedReading": {
+    "description": "Titre pour l'écran d'assistant de relevé"
+  },
+  "photoTaken": "Photo prise avec succès",
+  "@photoTaken": {
+    "description": "Message affiché lorsqu'une photo du compteur est prise"
+  },
+  "retake": "Reprendre",
+  "@retake": {
+    "description": "Texte du bouton pour reprendre une photo"
+  },
+  "cameraTip": "Alignez l'affichage du compteur dans le cadre pour de meilleurs résultats",
+  "@cameraTip": {
+    "description": "Conseil affiché sur l'écran de la caméra pour de meilleures photos de relevés"
+  },
+  "verifyValuePrompt": "Veuillez vérifier la valeur du relevé",
+  "@verifyValuePrompt": {
+    "description": "Invite à vérifier la valeur du relevé"
+  },
+  "meterReading": "Relevé de compteur",
+  "@meterReading": {
+    "description": "Titre pour la valeur du relevé de compteur"
+  },
+  "verifyTip": "Assurez-vous que la valeur correspond à ce que vous voyez sur le compteur",
+  "@verifyTip": {
+    "description": "Conseil affiché sur l'écran de vérification"
+  },
+  "dateExplanation": "Quand ce relevé a-t-il été pris ?",
+  "@dateExplanation": {
+    "description": "Explication pour la sélection de la date du relevé"
+  },
+  "selectedDate": "Date sélectionnée",
+  "@selectedDate": {
+    "description": "Étiquette pour la date sélectionnée"
+  },
+  "changeDate": "Modifier la date",
+  "@changeDate": {
+    "description": "Bouton pour modifier la date"
+  },
+  "dateTip": "La date du relevé aide à suivre la consommation dans le temps",
+  "@dateTip": {
+    "description": "Conseil sur l'importance de la date du relevé"
+  },
+  "notesExplanation": "Ajoutez des notes supplémentaires sur ce relevé",
+  "@notesExplanation": {
+    "description": "Explication pour le champ notes"
+  },
+  "notesTip": "Optionnel : Ajoutez des commentaires ou observations",
+  "@notesTip": {
+    "description": "Conseil pour le champ notes"
+  },
+  "missingData": "Veuillez remplir tous les champs requis",
+  "@missingData": {
+    "description": "Message d'erreur pour données manquantes"
+  },
+  "confirmPrompt": "Les informations sont-elles correctes ?",
+  "@confirmPrompt": {
+    "description": "Invite à confirmer les informations du relevé"
+  },
+  "readingSummary": "Résumé du relevé",
+  "@readingSummary": {
+    "description": "Titre pour le résumé du relevé"
+  },
+  "meter": "Compteur",
+  "@meter": {
+    "description": "Étiquette pour le nom du compteur"
+  },
+  "errorSavingReading": "Erreur lors de l'enregistrement du relevé : {error}",
+  "@errorSavingReading": {
+    "description": "Message d'erreur lors de l'échec de l'enregistrement du relevé",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "step": "Étape",
+  "@step": {
+    "description": "Étiquette d'étape dans l'assistant de relevé"
+  },
+  "reviewAndSave": "Vérifier et Enregistrer",
+  "@reviewAndSave": {
+    "description": "Titre pour l'étape de vérification et d'enregistrement"
+  },
+  "confirmDate": "Confirmer la Date",
+  "@confirmDate": {
+    "description": "Titre pour l'étape de confirmation de la date"
+  },
+  "guidedAssistantTip": "Assistant guidé",
+  "@guidedAssistantTip": {
+    "description": "Title for guided reading assistant tooltip"
+  },
+  "guidedAssistantDesc": "Essayez notre assistant étape par étape pour ajouter facilement des relevés !",
+  "@guidedAssistantDesc": {
+    "description": "Description of the guided reading assistant feature"
+  },
+  "assistant": "Assistant",
+  "@assistant": {
+    "description": "Label for assistant button"
   }
 }

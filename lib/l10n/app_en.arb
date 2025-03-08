@@ -853,7 +853,8 @@
     "description": "Error message when capturing image fails",
     "placeholders": {
       "error": {
-        "type": "String"
+        "type": "String",
+        "example": "Permission denied"
       }
     }
   },
@@ -1214,5 +1215,106 @@
   "getStarted": "Get Started",
   "@getStarted": {
     "description": "Get started button text"
+  },
+  "guidedReading": "Reading Assistant",
+  "@guidedReading": {
+    "description": "Title for the guided reading assistant screen"
+  },
+  "photoTaken": "Photo taken successfully",
+  "@photoTaken": {
+    "description": "Message shown when a meter reading photo is taken"
+  },
+  "retake": "Retake",
+  "@retake": {
+    "description": "Button text to retake a photo"
+  },
+  "cameraTip": "Line up the meter display within the frame for best results",
+  "@cameraTip": {
+    "description": "Tip shown on camera screen for better meter reading photos"
+  },
+  "verifyValuePrompt": "Please verify the reading value",
+  "@verifyValuePrompt": {
+    "description": "Prompt to verify reading value"
+  },
+  "meterReading": "Meter Reading",
+  "@meterReading": {
+    "description": "Title for meter reading value"
+  },
+  "verifyTip": "Make sure the value matches what you see on the meter",
+  "@verifyTip": {
+    "description": "Tip shown on verification screen"
+  },
+  "dateExplanation": "When was this reading taken?",
+  "@dateExplanation": {
+    "description": "Explanation for reading date selection"
+  },
+  "selectedDate": "Selected date",
+  "@selectedDate": {
+    "description": "Label for selected date"
+  },
+  "changeDate": "Change Date",
+  "@changeDate": {
+    "description": "Button to change date"
+  },
+  "dateTip": "The reading date helps track consumption over time",
+  "@dateTip": {
+    "description": "Tip about importance of reading date"
+  },
+  "notesExplanation": "Add any additional notes about this reading",
+  "@notesExplanation": {
+    "description": "Explanation for notes field"
+  },
+  "notesTip": "Optional: Add comments or observations",
+  "@notesTip": {
+    "description": "Tip for notes field"
+  },
+  "missingData": "Please fill in all required fields",
+  "@missingData": {
+    "description": "Error message for missing required data"
+  },
+  "confirmPrompt": "Is all the information correct?",
+  "@confirmPrompt": {
+    "description": "Prompt to confirm reading information"
+  },
+  "readingSummary": "Reading Summary",
+  "@readingSummary": {
+    "description": "Title for reading summary"
+  },
+  "meter": "Meter",
+  "@meter": {
+    "description": "Label for meter name"
+  },
+  "errorSavingReading": "Error saving reading: {error}",
+  "@errorSavingReading": {
+    "description": "Error message when saving reading fails",
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "step": "Step",
+  "@step": {
+    "description": "Step label in guided reading assistant"
+  },
+  "reviewAndSave": "Review and Save",
+  "@reviewAndSave": {
+    "description": "Title for review and save step"
+  },
+  "confirmDate": "Confirm Date",
+  "@confirmDate": {
+    "description": "Title for date confirmation step"
+  },
+  "guidedAssistantTip": "Guided Assistant",
+  "@guidedAssistantTip": {
+    "description": "Title for guided reading assistant tooltip"
+  },
+  "guidedAssistantDesc": "Try our step-by-step guided assistant to add meter readings easily!",
+  "@guidedAssistantDesc": {
+    "description": "Description of the guided reading assistant feature"
+  },
+  "assistant": "Assistant",
+  "@assistant": {
+    "description": "Label for assistant button"
   }
 }

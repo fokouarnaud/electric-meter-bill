@@ -11,6 +11,8 @@ import 'package:electric_meter_bill/presentation/bloc/meter_reading/meter_readin
 import 'package:electric_meter_bill/presentation/bloc/meter_reading/meter_reading_event.dart';
 import 'package:electric_meter_bill/presentation/screens/add_meter_reading_screen.dart';
 import 'package:electric_meter_bill/presentation/screens/bills_screen.dart';
+import 'package:electric_meter_bill/presentation/screens/feature_showcase.dart';
+import 'package:electric_meter_bill/presentation/screens/guided_reading_assistant.dart';
 import 'package:electric_meter_bill/presentation/screens/meter_readings_screen.dart';
 import 'package:electric_meter_bill/presentation/screens/settings_screen.dart';
 import 'package:electric_meter_bill/presentation/widgets/common_widgets.dart';
@@ -301,12 +303,13 @@ class _HomeScreenState extends State<HomeScreen>
       },
     );
   }
+// Ajout de l'option pour l'assistant guidé dans _buildMeterCard
 
-  Widget _buildMeterCard(BuildContext context, Meter meter) {
+Widget _buildMeterCard(BuildContext context, Meter meter) {
     final l10n = AppLocalizations.of(context);
-
+    
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -333,10 +336,10 @@ class _HomeScreenState extends State<HomeScreen>
               onPressed: () => _showMeterOptionsMenu(context, meter),
             ),
           ),
-
+          
           // Informations sur le client
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
             child: Row(
               children: [
                 const Icon(Icons.person, size: 16, color: Colors.grey),
@@ -357,13 +360,27 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
           ),
-
+          
           // Boutons d'action
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                // Assistant guidé (nouveau)
+                FeatureShowcase(
+                  featureId: 'guided_reading',
+                  title: l10n?.guidedAssistantTip ?? 'Guided Assistant',
+                  description: l10n?.guidedAssistantDesc ?? 'Try our step-by-step guided assistant to add meter readings easily!',
+                  child: _buildMeterActionButton(
+                    context,
+                    icon: Icons.assistant,
+                    label: l10n?.assistant ?? 'Assistant',
+                    onTap: () => _navigateToGuidedAssistant(context, meter),
+                  ),
+                ),
+                
+                // Boutons existants
                 _buildMeterActionButton(
                   context,
                   icon: Icons.add_chart,
@@ -382,12 +399,6 @@ class _HomeScreenState extends State<HomeScreen>
                   label: l10n?.bills ?? 'Bills',
                   onTap: () => _navigateToBills(context, meter),
                 ),
-                _buildMeterActionButton(
-                  context,
-                  icon: Icons.edit,
-                  label: l10n?.edit ?? 'Edit',
-                  onTap: () => _showEditMeterDialog(context, meter),
-                ),
               ],
             ),
           ),
@@ -395,7 +406,20 @@ class _HomeScreenState extends State<HomeScreen>
       ),
     );
   }
-
+  
+  // Ajouter cette méthode pour naviguer vers l'assistant guidé
+  void _navigateToGuidedAssistant(BuildContext context, Meter meter) {
+    Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+        builder: (context) => BlocProvider(
+          create: (context) => getIt<MeterReadingBloc>(),
+          child: GuidedReadingAssistant(meter: meter),
+        ),
+      ),
+    );
+  }
+  
   Widget _buildMeterActionButton(
     BuildContext context, {
     required IconData icon,
